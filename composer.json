@@ -1,0 +1,65 @@
+{
+    "name": "acacha/forge",
+    "type": "library",
+    "description": "Manage forge servers for delegated users",
+    "keywords": [
+        "acacha",
+        "forge"
+    ],
+    "homepage": "https://github.com/acacha/forge",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sergi Tur Badenas",
+            "email": "sergiturbadenas@gmail.com",
+            "homepage": "https://github.com/acacha",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "~5.6|~7.0",
+        "acacha/stateful-eloquent": "^0.1.8",
+        "guzzlehttp/guzzle": "^6.3",
+        "laravel-notification-channels/telegram": "^0.0.3",
+        "spatie/laravel-permission": "^2.7",
+        "themsaid/forge-sdk": "^1.2"
+    },
+    "require-dev": {
+        "phpunit/phpunit" : ">=5.4.3",
+        "squizlabs/php_codesniffer": "^2.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Acacha\\Forge\\": "src"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Acacha\\Forge\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "check-style": "phpcs -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 src tests",
+        "fix-style": "phpcbf -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 src tests"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        },
+        "laravel": {
+            "providers": [
+                "Acacha\\Forge\\Providers\\AcachaForgeServiceProvider"
+            ],
+            "aliases": {
+                "AcachaForge": "Acacha\\Forge\\AcachaForge"
+            }
+        }
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
