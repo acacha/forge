@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use Acacha\Forge\Events\ServerHasBeenAssignedToUser;
+use Acacha\Forge\Models\Server;
 use App\User;
 use Event;
 use Illuminate\Support\Facades\App;
@@ -41,7 +42,7 @@ class ApiUserServersControllerTest extends TestCase
         $this->actingAs($user,'api');
 
         //Execute
-        $response = $this->json('POST','api/v1/user/' . $otherUser->id . '/server', [
+        $response = $this->json('POST','api/v1/users/' . $otherUser->id . '/servers', [
             'server_id' => 1
         ]);
         $response->assertStatus(403);
@@ -107,7 +108,7 @@ class ApiUserServersControllerTest extends TestCase
         $this->actingAs($user,'api');
 
         //Execute
-        $response = $this->json('POST','api/v1/user/' . $otherUser->id . '/server', [
+        $response = $this->json('POST','api/v1/users/' . $otherUser->id . '/servers', [
             'server_id' => 1
         ]);
 
@@ -123,6 +124,30 @@ class ApiUserServersControllerTest extends TestCase
             'user_id' => $otherUser->id,
             'state' => 'pending'
         ]);
+
+    }
+
+    /**
+     * An error is thrown if an already assigned_server.
+     *
+     * @test
+     * @return void
+     */
+    public function an_error_is_thrown_if_an_already_assigned_server()
+    {
+        // Prepare
+        $server = factory(Server::class)->create();
+        $user = $server->user;
+        $user->assignRole('manage-forge');
+        $this->actingAs($user,'api');
+
+        //Execute
+        $response = $this->json('POST','api/v1/users/' . $user->id . '/servers', [
+            'server_id' => $server->forge_id
+        ]);
+
+        $response->assertSuccessful();
+
 
     }
 }

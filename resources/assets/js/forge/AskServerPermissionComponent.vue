@@ -81,7 +81,7 @@
           })
           .catch(error => {
             console.log( error.response)
-            if (error.response.status !== 422) this.$events.$emit('flashMessage', 'error' ,error.message);
+            if (error.response.status !== 422) this.$events.$emit('flashMessage', 'error' ,error.response.data.message);
           })
       },
       clearErrors (name) {

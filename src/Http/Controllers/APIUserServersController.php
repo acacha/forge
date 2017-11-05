@@ -23,14 +23,17 @@ class APIUserServersController extends Controller
      */
     public function store(StoreUserServers $request, User $user)
     {
-        $server = Server::Create([
+        $server = Server::firstOrCreate([
             'forge_id' => $request->server_id,
             'user_id' => $user->id,
             'state' => 'pending'
         ]);
 
-        event(new ServerHasBeenAssignedToUser($server));
+        if(! $server->wasRecentlyCreated){
+            abort(400,'The server has been already assigned to user!');
+        }
 
+        event(new ServerHasBeenAssignedToUser($server));
 
         return $server;
     }
