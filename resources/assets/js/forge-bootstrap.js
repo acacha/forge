@@ -6,5 +6,5 @@ import { config } from './config/relationships'
 window.acacha_forge = {}
 window.acacha_forge.config = config
 
-// import AdminlteVue from 'adminlte-vue'
-// Vue.use(AdminlteVue)
+import AdminlteVue from 'adminlte-vue'
+Vue.use(AdminlteVue)

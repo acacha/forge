@@ -1,6 +1,6 @@
 <template>
     <div>
-        <adminlte-vue-alert></adminlte-vue-alert>
+        <adminlte-vue-flash :message="message"></adminlte-vue-flash>
         <div class="box box-primary">
             <form method="post" @submit.prevent="submit" @keydown="clearErrors($event.target.name)">
                 <div class="box-header with-border">
@@ -23,7 +23,7 @@
                     <div class="form-group has-feedback" :class="{ 'has-error': form.errors.has('server_id') }">
                         <transition name="fade">
                             <label class="help-block" v-if="form.errors.has('server_id')" v-text="form.errors.get('server_id')"></label>
-                            <label for="givenName" v-else>Servers</label>
+                            <label for="servers" v-else>Servers</label>
                         </transition>
                         <multiselect id="servers" v-model="server" :options="servers" :custom-label="customServersLabel"
                                      @select="serverHasBeenSelected"
@@ -68,6 +68,7 @@
         server: null,
         users: [],
         servers: [],
+        message:'',
         form: new Form( { server_id: ''})
       }
     },
@@ -76,10 +77,11 @@
         let url = '/api/v1/users/' + this.user.id + '/servers'
         this.form.post(url)
           .then(response => {
-            console.log(response.data)
+            this.$events.$emit('flashMessage', 'success', 'Your request has been submitted!');
           })
           .catch(error => {
-            console.log('Register error: ' + error)
+            console.log( error.response)
+            if (error.response.status !== 422) this.$events.$emit('flashMessage', 'error' ,error.message);
           })
       },
       clearErrors (name) {
