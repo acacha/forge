@@ -2,9 +2,11 @@
 
 namespace Acacha\Forge\Providers;
 
+use Acacha\Forge\Events\ServerHasBeenAssignedToUser;
+use Acacha\Forge\Events\ServerRequestPermissionHasBeenAsked;
+use Acacha\Forge\Listeners\SendNotificationServerHasBeenAssignedToUserToManager;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory as EloquentFactory;
-use GuzzleHttp\Client;
 use Themsaid\Forge\Forge;
 
 /**
@@ -26,20 +28,38 @@ class AcachaForgeServiceProvider extends ServiceProvider
         $this->registerAcachaForgeServices();
     }
 
+    /**
+     * Register Acacha forge services
+     */
     protected function registerAcachaForgeServices()
     {
         $this->app->singleton(Forge::class, function () {
             return new Forge(env('FORGE_API_TOKEN'));
         });
+
+//        $this->app->singleton(Telegram::class, function () {
+//            return new Telegram(
+//                    config('services.telegram-bot-api.token'),
+//                    new HttpClient()
+//                );
+//        });
+
     }
 
+    /**
+     * Boot
+     */
     public function boot()
     {
         $this->defineRoutes();
         $this->loadViews();
         $this->loadmigrations();
+        $this->registerEventListeners();
     }
 
+    /**
+     * Define routes.
+     */
     private function defineRoutes()
     {
         $this->defineWebRoutes();
@@ -73,14 +93,32 @@ class AcachaForgeServiceProvider extends ServiceProvider
             ->group(ACACHA_FORGE_PATH .'/routes/api.php');
     }
 
+    /**
+     * Load views
+     */
     private function loadViews()
     {
         $this->loadViewsFrom(ACACHA_FORGE_PATH.'/resources/views', 'acacha-forge');
     }
 
+    /**
+     * Load migrations.
+     */
     private function loadMigrations()
     {
         $this->loadMigrationsFrom(ACACHA_FORGE_PATH.'/database/migrations');
+    }
+
+    private function registerEventListeners() {
+        $this->app->make('events')->listen(
+            ServerRequestPermissionHasBeenAsked::class,
+            SendNotificationServerHasBeenAssignedToUserToManager::class
+        );
+
+        $this->app->make('events')->listen(
+            ServerHasBeenAssignedToUser::class,
+            SendNotificationServerHasBeenAssignedToUserToManager::class
+        );
     }
 
     /**

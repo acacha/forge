@@ -21,7 +21,14 @@ class Server extends Model implements Stateful
      *
      * @var array
      */
-    protected $fillable = ['user_id','forge_id','state'];
+    protected $fillable = ['name','user_id','forge_id','state'];
+
+    /**
+     * Hidden.
+     *
+     * @var array
+     */
+    protected $hidden = ['token'];
 
     /**
      * Transaction States

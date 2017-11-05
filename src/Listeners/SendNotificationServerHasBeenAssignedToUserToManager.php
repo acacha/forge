@@ -2,6 +2,7 @@
 
 namespace Acacha\Forge\Listeners;
 
+use Acacha\Forge\Notifications\ServerPermissionRequested;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
@@ -10,17 +11,8 @@ use Illuminate\Contracts\Queue\ShouldQueue;
  *
  * @package App\Listeners
  */
-class SentNotificationServerHasBeenAssignedToUserToManager
+class SendNotificationServerHasBeenAssignedToUserToManager
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
 
     /**
      * Handle the event.
@@ -30,6 +22,8 @@ class SentNotificationServerHasBeenAssignedToUserToManager
      */
     public function handle($event)
     {
-        //
+        resolve(\Illuminate\Notifications\ChannelManager::class)
+            ->send(null, new ServerPermissionRequested($event->server));
+
     }
 }

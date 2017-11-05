@@ -15,7 +15,7 @@
                 </div>
                 <div class="box-body">
                     <div class="form-group">
-                        <label for="servers">Users</label>
+                        <label for="users">Users</label>
                         <multiselect id="users" v-model="user" :options="users" :custom-label="customUsersLabel"
                                      @select="userHasBeenSelected"
                                      placeholder="Select user" :disabled="disabled" :loading="loadingUsers"></multiselect>

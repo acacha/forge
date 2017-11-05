@@ -1,11 +1,17 @@
 <?php
 
+use Acacha\Forge\Models\Server;
+use Acacha\Forge\Notifications\ServerPermissionRequested;
 use App\User;
+use NotificationChannels\Telegram\Telegram;
+use NotificationChannels\Telegram\TelegramMessage;
 use Spatie\Permission\Exceptions\PermissionAlreadyExists;
 use Spatie\Permission\Exceptions\RoleAlreadyExists;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\PermissionRegistrar;
+use Themsaid\Forge\Forge;
+use GuzzleHttp\Client as HttpClient;
 
 if (! function_exists('initialize_forge_management_permissions')) {
 
@@ -19,8 +25,15 @@ if (! function_exists('initialize_forge_management_permissions')) {
         $student = role_first_or_create('student');
 
         //MANAGE FORGE ROLE
+        permission_first_or_create('list-user-servers');
         permission_first_or_create('store-user-servers');
+        permission_first_or_create('ask-server-permissions');
+        permission_first_or_create('validate-server-permissions');
+
+        give_permission_to_role($manageForge,'list-user-servers');
         give_permission_to_role($manageForge,'store-user-servers');
+        give_permission_to_role($manageForge,'ask-server-permissions');
+        give_permission_to_role($manageForge,'validate-server-permissions');
 
         //STUDENT ROLE
         permission_first_or_create('todo');
@@ -90,3 +103,76 @@ if (! function_exists('give_permission_to_role')) {
         }
     }
 }
+
+if (! function_exists('forge_servers')) {
+    /**
+     * Get forge servers
+     */
+    function forge_servers()
+    {
+        return resolve(Forge::class)->servers();
+    }
+}
+
+
+if (! function_exists('random_forge_server')) {
+    /**
+     * Get forge servers
+     */
+    function random_forge_server()
+    {
+        return collect(forge_servers())->random();
+    }
+}
+
+if (! function_exists('notify_test')) {
+    /**
+     * Get forge servers
+     */
+    function notify_test($to,$text)
+    {
+
+        $telegram = new Telegram(
+            config('services.telegram-bot-api.token'),
+            new HttpClient());
+
+        $telegram->sendMessage([
+            'chat_id' => $to,
+            'text' => $text,
+            'parse_mode' => 'Markdown',
+        ]);
+    }
+}
+
+if (! function_exists('notify_server_permission_requested_alt')) {
+    /**
+     * Notify server permission requested alt.
+     */
+    function notify_server_permission_requested_alt($user,$server)
+    {
+        $telegram = new Telegram(
+            config('services.telegram-bot-api.token'),
+            new HttpClient());
+
+        $message = TelegramMessage::create()
+            ->to(env('TELEGRAM_ACACHA_FORGE_MANAGERS_CHAT_ID')) // Optional.
+            ->content("A new permission has been requested\n User: $user \n Server: $server ") // Markdown supported.
+            ->button('Accept', 'http://acacha.org/accept'); // Inline Button
+
+        $telegram->sendMessage($message->toArray());
+    }
+}
+
+if (! function_exists('notify_server_permission_requested')) {
+    /**
+     *
+     * Notify server permission requested.
+     */
+    function notify_server_permission_requested( $server = null)
+    {
+        if ( ! $server ) $server = factory(Server::class)->create();
+        resolve(Illuminate\Notifications\ChannelManager::class)->send(null, new ServerPermissionRequested($server));
+    }
+}
+
+
