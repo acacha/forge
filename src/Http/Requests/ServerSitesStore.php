@@ -2,6 +2,7 @@
 
 namespace Acacha\Forge\Http\Requests;
 
+use Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
@@ -18,7 +19,19 @@ class ServerSitesStore extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        if ( $this->serverIsOwnedByUser() ) return true;
+        if ( Auth::user()->can('create-server-sites')) return true;
+        return false;
+    }
+
+    /**
+     * Servers is owned by user.
+     *
+     * @return bool
+     */
+    protected function serverIsOwnedByUser()
+    {
+        return in_array($this->forgeserver->id, Auth::user()->servers()->pluck('id')->toArray());
     }
 
     /**
@@ -29,7 +42,9 @@ class ServerSitesStore extends FormRequest
     public function rules()
     {
         return [
-            //
+            'domain' => 'required',
+            'project_type' => 'required',
+            'directory' => 'required'
         ];
     }
 }

@@ -4,6 +4,7 @@ namespace Acacha\Forge\Http\Controllers;
 
 use Acacha\Forge\Http\Requests\ServerSitesStore;
 use Acacha\Forge\Models\Server;
+use Themsaid\Forge\Exceptions\TimeoutException;
 use Themsaid\Forge\Forge;
 
 /**
@@ -13,7 +14,6 @@ use Themsaid\Forge\Forge;
  */
 class APIServerSitesController extends Controller
 {
-
     /**
      * Forge sdk.
      *
@@ -24,47 +24,30 @@ class APIServerSitesController extends Controller
     /**
      * ServerSitesController constructor.
      *
-     * @param $sites
+     * @param $forge
      */
-    public function __construct(Forge $sites)
+    public function __construct(Forge $forge)
     {
-        $this->sites = $sites;
+        $this->forge = $forge;
     }
 
     /**
      * Store site to a specific server.
      *
      * @param ServerSitesStore $request
-     * @param Server $server
+     * @param Server $forgeserver
      * @return mixed
      */
-    public function store(ServerSitesStore $request, Server $server)
+    public function store(ServerSitesStore $request, Server $forgeserver)
     {
-        dd('store method on APIServerSitesController');
-        // Requeriments: Forge SDK: all types of api
-        // Server: server id.
-        $forge = new \Themsaid\Forge\Forge(env('FORGE_API_TOKEN'));
+        $response = [];
+        try {
+            $response = $this->forge->createSite(159526, $request->only(['domain','project_type','directory']));
+        } catch (TimeoutException $exception) {
+            abort(500,'Timeout exception connecting to Laravel Forge');
+        }
 
-        $servers = $forge->servers();
-
-        dd($servers);
-
-//        $server = $forge->server($server->id);
-
-        $forge->createSite($server->id, $request->only(['domain','project_type','directory']));
-
-//      This method will ping Forge servers every 5 seconds and see if the newly created Site's status is installed
-// and only return when it's so, in case the waiting exceeded 30 seconds a Themsaid\Forge\Exceptions\TimeoutException
-// will be thrown.
-//
-//    You can easily stop this behaviour be setting the $wait argument to false:
-//
-//$forge->createSite(SERVER_ID, [SITE_PARAMETERS], false);
-//You can also set the desired timeout value:
-//
-//$forge->setTimeout(120)->createSite(SERVER_ID, [SITE_PARAMETERS]);
-
-//        return $this->sites->server($server)->store($request->only(['domain','project_type','directory']));
+        return (array) $response;
     }
 
 }

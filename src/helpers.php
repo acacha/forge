@@ -29,11 +29,13 @@ if (! function_exists('initialize_forge_management_permissions')) {
         permission_first_or_create('store-user-servers');
         permission_first_or_create('ask-server-permissions');
         permission_first_or_create('validate-server-permissions');
+        permission_first_or_create('create-server-sites');
 
         give_permission_to_role($manageForge,'list-user-servers');
         give_permission_to_role($manageForge,'store-user-servers');
         give_permission_to_role($manageForge,'ask-server-permissions');
         give_permission_to_role($manageForge,'validate-server-permissions');
+        give_permission_to_role($manageForge,'create-server-sites');
 
         //STUDENT ROLE
         permission_first_or_create('todo');

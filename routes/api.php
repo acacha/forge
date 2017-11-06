@@ -4,7 +4,7 @@ Route::group(['prefix' => 'v1','middleware' => 'auth:api'], function () {
 
     Route::get('/servers',                                                   'APIServersController@index');
 
-    Route::post('/servers/{server}/sites',                                   'APIServerSitesController@store');
+    Route::post('/servers/{forgeserver}/sites',                              'APIServerSitesController@store');
 
     Route::get('/users',                                                     'APIUsersController@index');
     Route::get('/users_with_logged_user',                                    'APIUsersWithLoggedUserController@index');
