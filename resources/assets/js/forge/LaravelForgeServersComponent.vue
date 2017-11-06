@@ -26,7 +26,7 @@
                     <table class="table table-bordered table-striped table-hover">
                         <tbody><tr>
                             <th style="width: 10px">#</th>
-                            <th>User:</th>
+                            <th>Id</th>
                             <th>Name</th>
                             <th>Forge id</th>
                             <th>State</th>
@@ -36,7 +36,7 @@
                         </tr>
                         <tr v-for="(server, index) in servers">
                             <td>{{ index + 1 }}</td>
-                            <td>{{ server.user }}</td>
+                            <td>{{ server.id }}</td>
                             <td>{{ server.name }}</td>
                             <td>{{ server.forge_id }}</td>
                             <td>{{ server.state }}</td>

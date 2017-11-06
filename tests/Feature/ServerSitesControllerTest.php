@@ -20,7 +20,7 @@ class ServerSitesControllerTest extends TestCase
     {
         parent::setUp();
         App::setLocale('en');
-//        initialize_relationships_management_permissions();
+        initialize_forge_management_permissions();
         $this->withoutExceptionHandling();
     }
 

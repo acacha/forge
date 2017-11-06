@@ -3,14 +3,15 @@
 namespace Acacha\Forge\Http\Controllers;
 
 use Acacha\Forge\Http\Requests\ServerSitesStore;
+use Acacha\Forge\Models\Server;
 use Themsaid\Forge\Forge;
 
 /**
- * Class ServerSitesController.
+ * Class APIServerSitesController.
  *
  * @package Acacha\Forge\Http\Controllers
  */
-class ServerSitesController extends Controller
+class APIServerSitesController extends Controller
 {
 
     /**
@@ -39,7 +40,7 @@ class ServerSitesController extends Controller
      */
     public function store(ServerSitesStore $request, Server $server)
     {
-
+        dd('store method on APIServerSitesController');
         // Requeriments: Forge SDK: all types of api
         // Server: server id.
         $forge = new \Themsaid\Forge\Forge(env('FORGE_API_TOKEN'));
