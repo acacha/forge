@@ -48,9 +48,9 @@ if (! function_exists('first_user_as_forge_manager')) {
     /**
      * Seed teachers.
      */
-    function first_user_as_relationships_manager()
+    function first_user_as_forge_manager()
     {
-        initialize_forge_permissions();
+        initialize_forge_management_permissions();
         $user = User::all()->first();
         $user->assignRole('manage-forge');
     }

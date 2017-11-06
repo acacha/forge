@@ -5,6 +5,7 @@ namespace Acacha\Forge\Http\Controllers;
 use Acacha\Forge\Http\Requests\ValidateServerPermission;
 use Acacha\Forge\Models\Server;
 use App\User;
+use Illuminate\Support\Str;
 
 /**
  * Class APIValidServersController.
@@ -30,6 +31,25 @@ class APIValidServersController extends Controller
             return $forgeserver;
         }
         abort(400,'Server is already validated');
+    }
+
+    /**
+     * Unvalidate server
+     *
+     * @param ValidateServerPermission $request
+     * @param User $user
+     * @param Server $forgeserver
+     * @return Server
+     */
+    public function destroy(ValidateServerPermission $request, User $user, Server $forgeserver)
+    {
+        if ($forgeserver->state === 'valid') {
+            $forgeserver->state='pending';
+            $forgeserver->token= Str::random(60);
+            $forgeserver->save();
+            return $forgeserver;
+        }
+        abort(400,'Server is already unvalidated');
     }
 
 }

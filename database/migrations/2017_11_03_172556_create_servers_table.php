@@ -25,6 +25,7 @@ class CreateServersTable extends Migration
             $table->string('token')->nullable();
             $table->timestamps();
 
+            $table->unique(['user_id', 'forge_id']);
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
         });

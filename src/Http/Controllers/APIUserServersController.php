@@ -3,10 +3,13 @@
 namespace Acacha\Forge\Http\Controllers;
 
 use Acacha\Forge\Events\ServerHasBeenAssignedToUser;
+use Acacha\Forge\Events\ServerHasBeenUnAssignedToUser;
+use Acacha\Forge\Http\Requests\DestroyUserServers;
 use Acacha\Forge\Http\Requests\ListUserServers;
 use Acacha\Forge\Http\Requests\StoreUserServers;
 use Acacha\Forge\Models\Server;
 use App\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Themsaid\Forge\Forge;
 
@@ -48,8 +51,10 @@ class APIUserServersController extends Controller
     }
 
     /**
-     * Get server id
+     * Get server by id.
+     *
      * @param $id
+     * @return mixed
      */
     protected function getServerById($id)
     {
@@ -59,6 +64,7 @@ class APIUserServersController extends Controller
         });
         return $servers->get($result);
     }
+
     /**
      * Store user servers.
      *
@@ -85,6 +91,30 @@ class APIUserServersController extends Controller
         $server->save();
 
         event(new ServerHasBeenAssignedToUser($server));
+
+        return $server;
+    }
+
+    /**
+     * Unassign server to user.
+     *
+     * @param Request $request
+     * @param User $user
+     * @param $forge_id
+     * @return mixed
+     */
+    public function destroy(Request $request, User $user, $forge_id)
+    {
+        $server = Server::where([
+            ['user_id' , $user->id],
+            ['forge_id' , $forge_id],
+        ])->first();
+
+        if(!$server) abort(404, 'No server found assigned to the specified user');
+
+        $server->delete();
+
+        event(new ServerHasBeenUnAssignedToUser($server));
 
         return $server;
     }

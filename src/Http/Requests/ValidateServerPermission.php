@@ -20,7 +20,7 @@ class ValidateServerPermission extends FormRequest
     public function authorize()
     {
         if ( $this->validateToken()) return true;
-        if ( Auth::user()->can('validate-server-permissions')) return true;
+        if (Auth::user()) if ( Auth::user()->can('validate-server-permissions')) return true;
         return false;
     }
 
