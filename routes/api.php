@@ -20,4 +20,6 @@ Route::group(['prefix' => 'v1','middleware' => 'auth:api'], function () {
 
     Route::get('/user/servers',                                              'APILoggedUserServersController@index');
 
+    Route::get('/user/sites/{server_id}',                                    'APILoggedUserSitesController@index');
+
 });

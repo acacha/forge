@@ -15,7 +15,7 @@ class APIServersController extends Controller
     /**
      * Forge sdk.
      *
-     * @var
+     * @var Forge
      */
     protected $forge;
 
