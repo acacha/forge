@@ -31,7 +31,7 @@ class ServerSitesStore extends FormRequest
      */
     protected function serverIsOwnedByUser()
     {
-        return in_array($this->forgeserver->id, Auth::user()->servers()->pluck('id')->toArray());
+        return in_array($this->forgeserver, Auth::user()->servers()->pluck('forge_id')->toArray());
     }
 
     /**

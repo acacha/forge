@@ -35,14 +35,14 @@ class APIServerSitesController extends Controller
      * Store site to a specific server.
      *
      * @param ServerSitesStore $request
-     * @param Server $forgeserver
+     * @param $forgeserver
      * @return mixed
      */
-    public function store(ServerSitesStore $request, Server $forgeserver)
+    public function store(ServerSitesStore $request, $forgeserver)
     {
         $response = [];
         try {
-            $response = $this->forge->createSite(159526, $request->only(['domain','project_type','directory']));
+            $response = $this->forge->createSite($forgeserver, $request->only(['domain','project_type','directory']));
         } catch (TimeoutException $exception) {
             abort(500,'Timeout exception connecting to Laravel Forge');
         }
