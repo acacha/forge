@@ -2,6 +2,7 @@
 
 namespace Acacha\Forge\Models;
 
+use Acacha\Forge\Models\Scopes\ValidScope;
 use Acacha\Stateful\Contracts\Stateful;
 use Acacha\Stateful\Traits\StatefulTrait;
 use App\User;
@@ -55,6 +56,17 @@ class Server extends Model implements Stateful
             'to' => 'pending'
         ]
     ];
+
+    /**
+     * Scope a query to only include valid servers.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeValid($query)
+    {
+        return $query->where('state', 'valid');
+    }
 
     /**
      * Get the user that owns the server.

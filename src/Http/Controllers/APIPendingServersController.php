@@ -2,7 +2,6 @@
 
 namespace Acacha\Forge\Http\Controllers;
 
-use Acacha\Forge\Events\ServerRequestPermissionHasBeenAsked;
 use Acacha\Forge\Http\Requests\AskServerPermission;
 use Acacha\Forge\Models\Server;
 use Acacha\Forge\Notifications\ServerPermissionRequested;

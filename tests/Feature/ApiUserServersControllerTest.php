@@ -134,7 +134,7 @@ class ApiUserServersControllerTest extends TestCase
 
         //Execute
         $uri = '/api/v1/users/' . $user->id . '/servers/' . $server->forge_id;
-        dump($uri);
+
         $response = $this->json('DELETE', $uri);
 
         $response->assertSuccessful();
@@ -254,6 +254,7 @@ class ApiUserServersControllerTest extends TestCase
         $this->actingAs($user,'api');
 
         $response = $this->json('GET','api/v1/users/' . $user->id . '/servers');
+        $this->assertEquals(count(json_decode($response->getContent())) , 3);
         $response->assertSuccessful();
         $response->assertJsonStructure([[
             'id',

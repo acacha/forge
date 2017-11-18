@@ -18,5 +18,6 @@ Route::group(['prefix' => 'v1','middleware' => 'auth:api'], function () {
     Route::post('/users/{user}/servers',                                     'APIUserServersController@store');
     Route::delete('/users/{user}/servers/{forge_id}',                        'APIUserServersController@destroy');
 
+    Route::get('/user/servers',                                              'APILoggedUserServersController@index');
 
 });

@@ -4,7 +4,6 @@ namespace Acacha\Forge\Http\Controllers;
 
 use Acacha\Forge\Events\ServerHasBeenAssignedToUser;
 use Acacha\Forge\Events\ServerHasBeenUnAssignedToUser;
-use Acacha\Forge\Http\Requests\DestroyUserServers;
 use Acacha\Forge\Http\Requests\ListUserServers;
 use Acacha\Forge\Http\Requests\StoreUserServers;
 use Acacha\Forge\Models\Server;
