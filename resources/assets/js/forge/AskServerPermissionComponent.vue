@@ -87,8 +87,8 @@
       clearErrors (name) {
         this.form.errors.clear(name)
       },
-      customServersLabel({ name, id}) {
-        return `${name} - ${id}`
+      customServersLabel({ name, id, ipAddress}) {
+        return `${name} - ${id} - ${ipAddress}`
       },
       customUsersLabel({ name, email , id}) {
         return `${name} - ${email} - ${id}`

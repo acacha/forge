@@ -74,11 +74,11 @@ class APIUserServersController extends Controller
     public function store(StoreUserServers $request, User $user)
     {
         $forgeServer = $this->getServerById($request->server_id);
-
         $server = Server::firstOrCreate([
             'forge_id' => $request->server_id,
             'name' => $forgeServer->name,
             'user_id' => $user->id,
+            'ipAddress' => $forgeServer->ipAddress,
             'state' => 'pending'
         ]);
 

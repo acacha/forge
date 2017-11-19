@@ -40,6 +40,7 @@ class APIServersController extends Controller
             $servers[] = [
                 'id'   => $server->id,
                 'name' => $server->name,
+                'ipAddress' => $server->ipAddress,
             ];
         }
         return $servers;

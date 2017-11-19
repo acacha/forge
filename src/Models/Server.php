@@ -22,7 +22,7 @@ class Server extends Model implements Stateful
      *
      * @var array
      */
-    protected $fillable = ['name','user_id','forge_id','state'];
+    protected $fillable = ['name','user_id','forge_id','state','ipAddress'];
 
     /**
      * Hidden.

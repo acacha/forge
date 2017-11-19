@@ -68,6 +68,7 @@ class ApiLoggedUserServersControllerTest extends TestCase
             'id',
             'name',
             'forge_id',
+            'ipAddress',
             'user_id',
             'state',
             'created_at',

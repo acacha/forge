@@ -11,6 +11,7 @@ $factory->define(Server::class, function (Faker $faker) {
     $forge_server = random_forge_server();
     return [
         'forge_id' => $forge_server->id,
+        'ipAddress' => $forge_server->ipAddress,
         'name' => $forge_server->name,
         'user_id' => factory(User::class)->create()->id,
         'token' => Str::random(60),

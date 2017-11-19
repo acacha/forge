@@ -19,6 +19,7 @@ class CreateServersTable extends Migration
         Schema::create('servers', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->string('ipAddress');
             $table->integer('forge_id')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->enum('state',['pending','valid'])->default('pending');

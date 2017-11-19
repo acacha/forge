@@ -42,7 +42,8 @@ class ServerSitesControllerTest extends TestCase
         $response->assertSuccessful();
         $response->assertJsonStructure([[
             'id',
-            'name'
+            'name',
+            'ipAddress'
         ]]);
 
     }

@@ -36,6 +36,7 @@ class ApiServerSitesControllerTest extends TestCase
     {
         // Prepare
         $server = factory(Server::class)->create();
+        $server->user->assignRole('manage-forge');
 
         $this->actingAs($server->user, 'api');
 
@@ -78,8 +79,7 @@ class ApiServerSitesControllerTest extends TestCase
         // Prepare
         $server = factory(Server::class)->create();
 
-        $faker = Factory::create();
-
+//        $faker = Factory::create();
 //        $domain = $faker->domainName;
 //        $directory = "/$domain";
         $domain = 'prova.com';
