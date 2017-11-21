@@ -7,36 +7,35 @@
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
 
-This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what
-PSRs you support to avoid any confusion with users and contributors.
-
-## Structure
-
-If any of the following are applicable to your project, then the directory structure should follow industry best practises by being named the following.
-
-```
-bin/        
-config/
-src/
-tests/
-vendor/
-```
-
+Forge-publish is a Laravel 5 package provided by acacha thats provides you with artisan commands to easily install the 
+current Laravel project into a Laravel Forge server.
 
 ## Install
 
-Via Composer
-
 ``` bash
-$ composer require acacha/forge
+$ composer require acacha/forge-publish
 ```
 
 ## Usage
 
-``` php
-$skeleton = new Acacha\Forge();
-echo $skeleton->echoPhrase('Hello, League!');
+This package requires using https://forge.acacha.org. 
+
+### Server side
+
+Please first visit:
+
 ```
+https://forge.acacha.org
+```
+
+Login and ask permissions to Manage a Laravel Forge Server. Wait to recibe a confirmation email 
+
+### publish:init command
+
+Run:
+
+``` bash
+php artisan publish:init```
 
 ## Change log
 
