@@ -22,4 +22,6 @@ Route::group(['prefix' => 'v1','middleware' => 'auth:api'], function () {
 
     Route::get('/user/sites/{server_id}',                                    'APILoggedUserSitesController@index');
 
+    Route::post('/user/servers/{serverId}/sites/{siteId}/git',               'APILoggedUserGitController@store');
+
 });
