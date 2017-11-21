@@ -9,11 +9,11 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**
- * Class APILoggedUserGitController.
+ * Class APILoggedUserGitControllerTest.
  *
  * @package Tests\Feature
  */
-class APILoggedUserGitController extends TestCase
+class APILoggedUserGitControllerTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -81,6 +81,26 @@ class APILoggedUserGitController extends TestCase
     }
 
     /**
+     * Resource not found on unexisting site.
+     *
+     * @test
+     */
+    public function resource_not_found_on_unexisting_site() {
+        $user = factory(User::class)->create();
+
+        factory(Server::class)->create([
+            'user_id' => $user->id,
+            'forge_id' => 1568,
+            'state' => 'valid'
+        ]);
+        $this->actingAs($user,'api');
+        $response = $this->json('POST','/api/v1/user/servers/1568/sites/99999/git', [
+            'repository' => 'acacha/prova'
+        ]);
+        $response->assertStatus(404);
+    }
+
+    /**
      * Can install git repositories on owned servers.
      *
      * @test
@@ -90,16 +110,14 @@ class APILoggedUserGitController extends TestCase
 
         factory(Server::class)->create([
             'user_id' => $user->id,
-            'forge_id' => 1568,
+            'forge_id' => 154577,
             'state' => 'valid'
         ]);
         $this->actingAs($user,'api');
-        $response = $this->json('POST','/api/v1/user/servers/1568/sites/5986/git', [
-            'repository' => 'acacha/prova'
+        $response = $this->json('POST','/api/v1/user/servers/154577/sites/435202/git', [
+            'repository' => 'acacha/forge-publish-test'
         ]);
-        $response->dump();
         $response->assertSuccessful();
-
     }
 
 //    /**

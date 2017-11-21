@@ -3,6 +3,7 @@
 namespace Acacha\Forge\Http\Controllers;
 
 use Acacha\Forge\Http\Requests\StoreGitRepository;
+use Themsaid\Forge\Forge;
 
 /**
  * Class APILoggedUserGitController
@@ -11,13 +12,45 @@ use Acacha\Forge\Http\Requests\StoreGitRepository;
  */
 class APILoggedUserGitController extends Controller
 {
+
     /**
-     * Show servers of logged user
+     * Forge sdk.
+     *
+     * @var Forge
+     */
+    protected $forge;
+
+    /**
+     * APIServersController constructor.
+     *
+     * @param $forge
+     */
+    public function __construct(Forge $forge)
+    {
+        $this->forge = $forge;
+    }
+
+    /**
+     * Show servers of logged user.
+     *
+     * @param StoreGitRepository $request
+     * @param $serverId
+     * @param $siteId
      */
     public function store(StoreGitRepository $request, $serverId, $siteId)
     {
-//            Route::post('/user/servers/{serverId}/sites/{siteId}/git',               'APILoggedUserGitController@store');
+        try {
+            $site = $this->forge->site($serverId, $siteId);
+        } catch (\Exception $e) {
+            abort(404,$e->getMessage());
+        }
 
-//        return Auth::user()->servers()->valid()->get();
+        $provider = $request->provider ? $request->provider : 'github';
+        $branch = $request->branch ? $request->branch : 'master';
+        $site->installGitRepository([
+            "provider" => $provider,
+            "repository" => $request->repository,
+            "branch" => $branch
+        ]);
     }
 }
