@@ -7,11 +7,11 @@ use Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * Class StoreGitRepository.
+ * Class StoreSSHKey.
  *
  * @package Acacha\Forge\Http\Requests
  */
-class StoreGitRepository extends FormRequest
+class StoreSSHKey extends FormRequest
 {
     use ServerIsAssignedToUserAndValid;
 
@@ -23,7 +23,7 @@ class StoreGitRepository extends FormRequest
     public function authorize()
     {
         if ($this->isServerAssignedToUserAndValid($this->serverId)) return true;
-        if (Auth::user()->can('install-git-repositories')) return true;
+        if (Auth::user()->can('install-ssh-keys')) return true;
         return false;
     }
 
@@ -35,7 +35,8 @@ class StoreGitRepository extends FormRequest
     public function rules()
     {
         return [
-            'repository' => 'required'
+            'name' => 'required',
+            'key' => 'required',
         ];
     }
 }

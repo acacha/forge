@@ -24,4 +24,6 @@ Route::group(['prefix' => 'v1','middleware' => 'auth:api'], function () {
 
     Route::post('/user/servers/{serverId}/sites/{siteId}/git',               'APILoggedUserGitController@store');
 
+    Route::post('/user/servers/{serverId}/keys',                             'APILoggedUserKeyController@store');
+
 });

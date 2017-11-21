@@ -35,7 +35,8 @@ Login and ask permissions to Manage a Laravel Forge Server. Wait to recibe a con
 Run:
 
 ``` bash
-php artisan publish:init```
+php artisan publish:init
+```
 
 ## Change log
 
