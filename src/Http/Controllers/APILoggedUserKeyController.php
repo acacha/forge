@@ -39,6 +39,11 @@ class APILoggedUserKeyController extends Controller
      */
     public function store(StoreSSHKey $request, $serverId)
     {
-        return json_encode($this->forge->createSSHKey($serverId, $request->only(['name','key']), true));
+        try {
+            $result  = $this->forge->createSSHKey($serverId, $request->only(['name','key']), true);
+        } catch(\Exception $e) {
+            return json_encode($e);
+        }
+        return json_encode($result);
     }
 }
