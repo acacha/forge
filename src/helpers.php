@@ -32,6 +32,9 @@ if (! function_exists('initialize_forge_management_permissions')) {
         permission_first_or_create('create-server-sites');
         permission_first_or_create('install-git-repositories');
         permission_first_or_create('install-ssh-keys');
+        permission_first_or_create('enable-auto-deploy');
+        permission_first_or_create('disable-auto-deploy');
+        permission_first_or_create('obtain-lets-encrypt-certificate');
 
         give_permission_to_role($manageForge,'list-user-servers');
         give_permission_to_role($manageForge,'store-user-servers');
@@ -40,6 +43,9 @@ if (! function_exists('initialize_forge_management_permissions')) {
         give_permission_to_role($manageForge,'create-server-sites');
         give_permission_to_role($manageForge,'install-git-repositories');
         give_permission_to_role($manageForge,'install-ssh-keys');
+        give_permission_to_role($manageForge,'enable-auto-deploy');
+        give_permission_to_role($manageForge,'disable-auto-deploy');
+        give_permission_to_role($manageForge,'obtain-lets-encrypt-certificate');
 
         //STUDENT ROLE
         permission_first_or_create('todo');
