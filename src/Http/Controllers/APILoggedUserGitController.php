@@ -47,6 +47,7 @@ class APILoggedUserGitController extends Controller
 
         $provider = $request->provider ? $request->provider : 'github';
         $branch = $request->branch ? $request->branch : 'master';
+
         $site->installGitRepository([
             "provider" => $provider,
             "repository" => $request->repository,
