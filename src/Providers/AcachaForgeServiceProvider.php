@@ -26,6 +26,10 @@ class AcachaForgeServiceProvider extends ServiceProvider
         $this->registerEloquentFactoriesFrom(ACACHA_FORGE_PATH . '/database/factories');
 
         $this->registerAcachaForgeServices();
+
+        $this->mergeConfigFrom(
+            ACACHA_FORGE_PATH.'/config/forge.php', 'forge'
+        );
     }
 
     /**
