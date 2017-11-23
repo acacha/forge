@@ -56,9 +56,35 @@ if (! function_exists('initialize_forge_management_permissions')) {
     }
 }
 
+if (! function_exists('set_laravel_passport_grant_client_token')) {
+    /**
+     * Set Laravel passport grant client token.
+     */
+    function set_laravel_passport_grant_client_token()
+    {
+        DB::table('oauth_clients')
+            ->where('id', 2)
+            ->update(['secret' => 'dLdsIf3nPMWJC4gOCNcsUn5pBSv5tTPSaU51Gu2F']);
+    }
+}
+
+if (! function_exists('create_first_user')) {
+    /**
+     * Create first user.
+     */
+    function create_first_user()
+    {
+        factory(User::class)->create([
+            'name' => env('ACACHA_FORGE_FIRST_USER_NAME','Sergi Tur Badenas'),
+            'email' => env('ACACHA_FORGE_FIRST_USER_EMAIL','sergiturbadenas@gmail.com'),
+            'password' => env('ACACHA_FORGE_FIRST_USER_PASSWORD','123456')
+        ]);
+    }
+}
+
 if (! function_exists('first_user_as_forge_manager')) {
     /**
-     * Seed teachers.
+     * Set first user as Forge manager
      */
     function first_user_as_forge_manager()
     {
@@ -71,6 +97,7 @@ if (! function_exists('first_user_as_forge_manager')) {
 if (! function_exists('role_first_or_create')) {
     /**
      * Create  role by name or retrieve role if already exists.
+     *
      * @param $role
      * @return \Illuminate\Database\Eloquent\Model|\Spatie\Permission\Contracts\Role|Role
      */
