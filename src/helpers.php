@@ -77,7 +77,7 @@ if (! function_exists('create_first_user')) {
         factory(User::class)->create([
             'name' => env('ACACHA_FORGE_FIRST_USER_NAME','Sergi Tur Badenas'),
             'email' => env('ACACHA_FORGE_FIRST_USER_EMAIL','sergiturbadenas@gmail.com'),
-            'password' => env('ACACHA_FORGE_FIRST_USER_PASSWORD','123456')
+            'password' => bcrypt(env('ACACHA_FORGE_FIRST_USER_PASSWORD','123456'))
         ]);
     }
 }
