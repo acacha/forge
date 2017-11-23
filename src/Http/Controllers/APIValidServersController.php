@@ -29,7 +29,7 @@ class APIValidServersController extends Controller
             $forgeserver->state='valid';
             $forgeserver->token= null;
             $forgeserver->save();
-            return $forgeserver;
+            return view('acacha-forge::server_permission_approved', ['server' => $forgeserver]);
         }
         abort(400,'Server is already validated');
     }

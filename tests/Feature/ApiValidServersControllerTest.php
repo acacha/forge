@@ -73,6 +73,11 @@ class ApiValidServersControllerTest  extends TestCase
             'state' => 'valid',
             'token' => null
         ]);
+
+        $response->assertSeeText('You have been approved access to server:');
+        $response->assertSeeText($server->name);
+        $response->assertSeeText((String) $server->forge_id);
+        $response->assertSeeText($server->user->name);
     }
 
     /**
