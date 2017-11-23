@@ -61,8 +61,7 @@ class ServerPermissionRequested extends Notification
         $server_id = $this->server->id;
         $server_forge_id = $this->server->forge_id;
 
-        $domain = env('APP_URL');
-        if (str_contains(env('APP_URL'),'http://localhost')) $domain = 'http://forge.acacha.org';
+        $domain = config('forge.url');
         $url = $domain . '/users/' . $user_id . '/servers/' . $server_id . '/validate';
 
         return TelegramMessage::create()

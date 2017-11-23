@@ -14,6 +14,26 @@ use Illuminate\Support\Str;
  */
 class APIValidServersController extends Controller
 {
+
+    /**
+     * Ask for server permission.
+     *
+     * @param ValidateServerPermission $request
+     * @param User $user
+     * @param Server $forgeserver
+     * @return Server
+     */
+    public function index(ValidateServerPermission $request, User $user, Server $forgeserver)
+    {
+        if ($forgeserver->state === 'pending') {
+            $forgeserver->state='valid';
+            $forgeserver->token= null;
+            $forgeserver->save();
+            return $forgeserver;
+        }
+        abort(400,'Server is already validated');
+    }
+
     /**
      * Ask for server permission.
      *

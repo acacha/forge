@@ -52,6 +52,30 @@ class ApiValidServersControllerTest  extends TestCase
     }
 
     /**
+     * Anyone can validate a server using token.
+     *
+     * @test
+     */
+    public function anyone_can_validate_a_server_using_token_via_get()
+    {
+        $server = factory(Server::class)->create();
+        $user = $server->user;
+
+        $response = $this->json('GET','/users/' . $user->id . '/servers/' . $server->id . '/validate?token=' .  $server->token);
+
+        $response->assertSuccessful();
+
+        $this->assertDatabaseHas('servers',[
+            'id' => $server->id,
+            'name' => $server->name,
+            'forge_id' => $server->forge_id,
+            'user_id' => $user->id,
+            'state' => 'valid',
+            'token' => null
+        ]);
+    }
+
+    /**
      * Unauthorized response with invalid token.
      *
      * @test

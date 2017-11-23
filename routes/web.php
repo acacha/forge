@@ -11,3 +11,4 @@ Route::group(['middleware' => 'auth'], function () {
 
 
 Route::post('/users/{user}/servers/{forgeserver}/validate',         'APIValidServersController@store');
+Route::get ('/users/{user}/servers/{forgeserver}/validate',         'APIValidServersController@index');

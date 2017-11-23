@@ -37,13 +37,6 @@ class AcachaForgeServiceProvider extends ServiceProvider
             return new Forge(env('FORGE_API_TOKEN'));
         });
 
-//        $this->app->singleton(Telegram::class, function () {
-//            return new Telegram(
-//                    config('services.telegram-bot-api.token'),
-//                    new HttpClient()
-//                );
-//        });
-
     }
 
     /**
@@ -55,6 +48,8 @@ class AcachaForgeServiceProvider extends ServiceProvider
         $this->loadViews();
         $this->loadmigrations();
         $this->registerEventListeners();
+
+        $this->publishConfig();
     }
 
     /**
@@ -130,5 +125,15 @@ class AcachaForgeServiceProvider extends ServiceProvider
     protected function registerEloquentFactoriesFrom($path)
     {
         $this->app->make(EloquentFactory::class)->load($path);
+    }
+
+    /**
+     * Publish config.
+     */
+    protected function publishConfig()
+    {
+        $this->publishes([
+            ACACHA_FORGE_PATH .'/config/forge.php' => config_path('forge.php'),
+        ]);
     }
 }
