@@ -21,7 +21,7 @@
             <h4><i class="fa fa-warning text-yellow"></i>You have been approved access to server:</h4>
             <ul>
                 <li>Name: {{ $server->name }}</li>
-                <li>User: {{ $server->user }}</li>
+                <li>User: {{ $server->user->name }}</li>
                 <li>Forge id: {{ $server->forge_id }}</li>
             </ul>
             Go to <a href="{{ config('forge.url') }}/home">Acacha Forge</a>
