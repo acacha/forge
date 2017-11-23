@@ -62,7 +62,8 @@ class ServerPermissionRequested extends Notification
         $server_forge_id = $this->server->forge_id;
 
         $domain = config('forge.url');
-        $url = $domain . '/users/' . $user_id . '/servers/' . $server_id . '/validate';
+
+        $url = $domain . '/users/' . $user_id . '/servers/' . $server_id . '/validate?token=' . $this->server->token;
 
         return TelegramMessage::create()
             ->to(env('TELEGRAM_ACACHA_FORGE_MANAGERS_CHAT_ID'))
