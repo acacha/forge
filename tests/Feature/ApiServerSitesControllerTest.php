@@ -82,7 +82,7 @@ class ApiServerSitesControllerTest extends TestCase
 //        $faker = Factory::create();
 //        $domain = $faker->domainName;
 //        $directory = "/$domain";
-        $domain = 'prova.com';
+        $domain = ' prova.com';
         $directory = "/prova.com";
 
         $this->actingAs($server->user,'api');
