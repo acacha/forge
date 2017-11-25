@@ -8,11 +8,11 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 /**
- * Class ServerSitesControllerTest.
+ * Class ApiServerSitesControllerTest.
  *
  * @package Tests\Feature
  */
-class ServerSitesControllerTest extends TestCase
+class ApiServerSitesControllerTest extends TestCase
 {
     use RefreshDatabase;
 

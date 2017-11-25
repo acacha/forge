@@ -2,6 +2,7 @@
 
 Route::group(['prefix' => 'v1','middleware' => 'auth:api'], function () {
 
+    Route::get('/check_token',                                               'APICheckTokenController@index');
     Route::get('/servers',                                                   'APIServersController@index');
 
     Route::post('/servers/{forgeserver}/sites',                              'APIServerSitesController@store');
