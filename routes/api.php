@@ -41,8 +41,7 @@ Route::group(['prefix' => 'v1','middleware' => 'auth:api'], function () {
     Route::post('/user/servers/{serverId}/sites/{siteId}/deployment/deploy',
                                                                                 'APILoggedUserDeployController@store');
 
-//    POST /api/v1/servers/{serverId}/sites/{siteId}/deployment/deploy
-
+    Route::post('/user/servers/{serverId}/mysql',                           'APILoggedUserMysqlController@store');
 
 
 });
