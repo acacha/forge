@@ -32,4 +32,10 @@ Route::group(['prefix' => 'v1','middleware' => 'auth:api'], function () {
     Route::post('/user/servers/{serverId}/sites/{siteId}/certificates/letsencrypt',
                                                                                 'APILoggedUserLetsEncryptController@store');
 
+    Route::post('/user/servers/{serverId}/sites/{siteId}/certificates/{id}/activate',
+                                                                                'APILoggedUserActiveCertificateController@store');
+
+    Route::post('/user/servers/{serverId}/sites/{siteId}/certificates',
+                                                                                'APILoggedUserCertificatesController@index');
+
 });

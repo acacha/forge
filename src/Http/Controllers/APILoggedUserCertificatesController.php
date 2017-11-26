@@ -2,15 +2,16 @@
 
 namespace Acacha\Forge\Http\Controllers;
 
-use Acacha\Forge\Http\Requests\ListSites;
+use Acacha\Forge\Http\Requests\ActivateSSL;
+use Acacha\Forge\Http\Requests\ListCertificates;
 use Themsaid\Forge\Forge;
 
 /**
- * Class APILoggedUserSitesController.
+ * Class APILoggedUserCertificatesController.
  *
  * @package Acacha\Forge\Http\Controllers
  */
-class APILoggedUserSitesController extends Controller
+class APILoggedUserCertificatesController extends Controller
 {
     /**
      * Forge sdk.
@@ -30,11 +31,10 @@ class APILoggedUserSitesController extends Controller
     }
 
     /**
-     * Show sites of logged user
+     * List certificates.
      */
-    public function index(ListSites $request, $serverId)
+    protected function index(ListCertificates $request,$serverId, $siteId)
     {
-        return $this->forge->sites($serverId);
-
+        return $this->forge->certificates($serverId, $siteId);
     }
 }
