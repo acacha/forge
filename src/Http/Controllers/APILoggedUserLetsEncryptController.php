@@ -54,8 +54,10 @@ class ApiLoggedUserLetsEncryptController extends Controller
         try {
             $this->forge->obtainLetsEncryptCertificate($serverId, $siteId, [ 'domains' => $domains] ,true);
         } catch (\Exception $e) {
-            dd($e);
+            abort(500, $e->getMessage());
         }
+
+        return ['message' => 'Lets Encrypt Certificate created ok!'];
 
     }
 
