@@ -42,7 +42,7 @@ class APIServerSitesController extends Controller
     {
         $response = [];
         try {
-            $response = $this->forge->createSite($forgeserver, $request->only(['domain','project_type','directory']));
+            $response = $this->forge->createSite($forgeserver, $request->only(['domain','project_type','directory']),true);
         } catch (TimeoutException $exception) {
             abort(500,'Timeout exception connecting to Laravel Forge');
         }
