@@ -41,20 +41,12 @@ class APIServerSitesController extends Controller
      */
     public function store(ServerSitesStore $request, $forgeserver)
     {
-        Log::info('store method on APIServerSitesController');
-        Log::info("Forge server: $forgeserver");
-
         $response = [];
         try {
             $response = $this->forge->createSite($forgeserver, $request->only(['domain','project_type','directory']),false);
-            Log::info('Done');
         } catch (TimeoutException $exception) {
-            Log::info('Timeout exception!!');
             abort(500,'Timeout exception connecting to Laravel Forge');
         }
-
-        Log::info('Before end');
-        Log::error($response);
         return (array) $response;
     }
 
