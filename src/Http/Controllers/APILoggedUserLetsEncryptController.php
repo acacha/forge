@@ -52,7 +52,7 @@ class ApiLoggedUserLetsEncryptController extends Controller
             $domains = [ $request->domains ];
         }
         try {
-            $this->forge->obtainLetsEncryptCertificate($serverId, $siteId, [ 'domains' => $domains] ,true);
+            $this->forge->obtainLetsEncryptCertificate($serverId, $siteId, [ 'domains' => $domains] ,false);
         } catch (\Exception $e) {
             abort(500, $e->getMessage());
         }
