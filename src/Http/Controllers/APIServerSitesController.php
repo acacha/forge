@@ -42,6 +42,7 @@ class APIServerSitesController extends Controller
     public function store(ServerSitesStore $request, $forgeserver)
     {
         Log::info('store method on APIServerSitesController');
+        Log::info('Forge server: $forgeserver');
 
         $response = [];
         try {
