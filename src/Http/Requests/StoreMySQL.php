@@ -36,7 +36,7 @@ class StoreMySQL extends FormRequest
     {
         return [
             'name' => 'required',
-            'password' => 'required_if:user'
+            'password' => 'required_with:user'
         ];
     }
 }
