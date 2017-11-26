@@ -35,7 +35,7 @@ Route::group(['prefix' => 'v1','middleware' => 'auth:api'], function () {
     Route::post('/user/servers/{serverId}/sites/{siteId}/certificates/{id}/activate',
                                                                                 'APILoggedUserActiveCertificateController@store');
 
-    Route::post('/user/servers/{serverId}/sites/{siteId}/certificates',
+    Route::get('/user/servers/{serverId}/sites/{siteId}/certificates',
                                                                                 'APILoggedUserCertificatesController@index');
 
 });
