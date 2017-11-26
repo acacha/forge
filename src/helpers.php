@@ -37,6 +37,7 @@ if (! function_exists('initialize_forge_management_permissions')) {
         permission_first_or_create('obtain-lets-encrypt-certificate');
         permission_first_or_create('activate-certificate');
         permission_first_or_create('list-certificates');
+        permission_first_or_create('deploy-site');
 
         give_permission_to_role($manageForge,'list-user-servers');
         give_permission_to_role($manageForge,'store-user-servers');
@@ -50,6 +51,7 @@ if (! function_exists('initialize_forge_management_permissions')) {
         give_permission_to_role($manageForge,'obtain-lets-encrypt-certificate');
         give_permission_to_role($manageForge,'activate-certificate');
         give_permission_to_role($manageForge,'list-certificates');
+        give_permission_to_role($manageForge,'deploy-site');
 
         //STUDENT ROLE
         permission_first_or_create('todo');
