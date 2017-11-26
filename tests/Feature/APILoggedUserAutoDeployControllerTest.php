@@ -76,17 +76,17 @@ class APILoggedUserAutoDeployControllerTest extends TestCase
      *
      * @test
      */
-    public function can_enable_autodeploy_on_owned_servers() {
-        $user = factory(User::class)->create();
-
-        factory(Server::class)->create([
-            'user_id' => $user->id,
-            'forge_id' => 154577,
-            'state' => 'valid'
-        ]);
-        $this->actingAs($user,'api');
-        $response = $this->json('POST','/api/v1/user/servers/154577/sites/435202/deploy');
-        $response->assertSuccessful();
-    }
+//    public function can_enable_autodeploy_on_owned_servers() {
+//        $user = factory(User::class)->create();
+//
+//        factory(Server::class)->create([
+//            'user_id' => $user->id,
+//            'forge_id' => 154577,
+//            'state' => 'valid'
+//        ]);
+//        $this->actingAs($user,'api');
+//        $response = $this->json('POST','/api/v1/user/servers/154577/sites/435202/deploy');
+//        $response->assertSuccessful();
+//    }
 
 }

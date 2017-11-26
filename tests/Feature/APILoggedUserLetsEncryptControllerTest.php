@@ -99,24 +99,24 @@ class ApiLoggedUserLetsEncryptControllerTest extends TestCase
         ]);
     }
 
-    /**
-     * Can obtain lets encrypt certificate on owned servers.
-     *
-     * @test
-     */
-    public function can_obtain_lets_encrypt_certificate_on_owned_servers() {
-        $user = factory(User::class)->create();
-
-        factory(Server::class)->create([
-            'user_id' => $user->id,
-            'forge_id' => 154577,
-            'state' => 'valid'
-        ]);
-        $this->actingAs($user,'api');
-        $response = $this->json('POST','/api/v1/user/servers/154577/sites/435202/certificates/letsencrypt', [
-            'domains' => 'forgepublish.2dam.iesebre.com'
-        ]);
-        $response->assertSuccessful();
-    }
+//    /**
+//     * Can obtain lets encrypt certificate on owned servers.
+//     *
+//     * @test
+//     */
+//    public function can_obtain_lets_encrypt_certificate_on_owned_servers() {
+//        $user = factory(User::class)->create();
+//
+//        factory(Server::class)->create([
+//            'user_id' => $user->id,
+//            'forge_id' => 154577,
+//            'state' => 'valid'
+//        ]);
+//        $this->actingAs($user,'api');
+//        $response = $this->json('POST','/api/v1/user/servers/154577/sites/435202/certificates/letsencrypt', [
+//            'domains' => 'forgepublish.2dam.iesebre.com'
+//        ]);
+//        $response->assertSuccessful();
+//    }
 
 }
