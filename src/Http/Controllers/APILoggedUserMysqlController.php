@@ -2,6 +2,7 @@
 
 namespace Acacha\Forge\Http\Controllers;
 
+use Acacha\Forge\Http\Requests\ListMySQL;
 use Acacha\Forge\Http\Requests\StoreMySQL;
 use Themsaid\Forge\Forge;
 
@@ -30,13 +31,30 @@ class APILoggedUserMysqlController extends Controller
     }
 
     /**
-     * Deploy site.
+     * List mysql database sites.
+     *
+     * @param ListMySQL $request
+     * @param $serverId
+     */
+    protected function index(ListMySQL $request, $serverId)
+    {
+
+        try {
+            $this->forge->mysqlDatabases($serverId);
+        } catch (\Exception $e) {
+            abort(500,$e->getMessage());
+        }
+    }
+
+    /**
+     * Create mysql database.
      *
      * @param StoreMySQL $request
      * @param $serverId
      */
     protected function store(StoreMySQL $request, $serverId)
     {
+
         try {
             $this->forge->createMysqlDatabase($serverId, $request->only(['name','user','password']), false);
         } catch (\Exception $e) {
