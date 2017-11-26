@@ -42,7 +42,7 @@ Route::group(['prefix' => 'v1','middleware' => 'auth:api'], function () {
                                                                                 'APILoggedUserDeployController@store');
 
     Route::get('/user/servers/{serverId}/mysql',                           'APILoggedUserMysqlController@index');
-    
+
     Route::post('/user/servers/{serverId}/mysql',                           'APILoggedUserMysqlController@store');
 
 

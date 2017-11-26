@@ -32,15 +32,15 @@ class APILoggedUserMysqlController extends Controller
 
     /**
      * List mysql database sites.
-     *
+     * 
      * @param ListMySQL $request
      * @param $serverId
+     * @return \Themsaid\Forge\Resources\MysqlDatabase[]
      */
     protected function index(ListMySQL $request, $serverId)
     {
-
         try {
-            $this->forge->mysqlDatabases($serverId);
+            return $this->forge->mysqlDatabases($serverId);
         } catch (\Exception $e) {
             abort(500,$e->getMessage());
         }
