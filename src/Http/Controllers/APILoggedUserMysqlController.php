@@ -32,7 +32,7 @@ class APILoggedUserMysqlController extends Controller
 
     /**
      * List mysql database sites.
-     * 
+     *
      * @param ListMySQL $request
      * @param $serverId
      * @return \Themsaid\Forge\Resources\MysqlDatabase[]
