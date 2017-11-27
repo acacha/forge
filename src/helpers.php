@@ -45,6 +45,9 @@ if (! function_exists('initialize_forge_management_permissions')) {
         permission_first_or_create('show-mysql-user');
         permission_first_or_create('create-mysql-user');
 
+        permission_first_or_create('show-deployment-script');
+        permission_first_or_create('update-deployment-script');
+
 
         give_permission_to_role($manageForge,'list-user-servers');
         give_permission_to_role($manageForge,'store-user-servers');
@@ -65,6 +68,9 @@ if (! function_exists('initialize_forge_management_permissions')) {
         give_permission_to_role($manageForge,'list-mysql-users');
         give_permission_to_role($manageForge,'show-mysql-user');
         give_permission_to_role($manageForge,'create-mysql-user');
+
+        give_permission_to_role($manageForge,'show-deployment-script');
+        give_permission_to_role($manageForge,'update-deployment-script');
 
 
         //STUDENT ROLE

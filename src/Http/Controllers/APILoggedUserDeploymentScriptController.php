@@ -3,15 +3,17 @@
 namespace Acacha\Forge\Http\Controllers;
 
 use Acacha\Forge\Http\Requests\DestroyAutoDeploy;
+use Acacha\Forge\Http\Requests\ShowDeploymentScript;
 use Acacha\Forge\Http\Requests\StoreAutoDeploy;
+use Acacha\Forge\Http\Requests\UpdateDeploymentScript;
 use Themsaid\Forge\Forge;
 
 /**
- * Class APILoggedUserAutoDeployController
+ * Class APILoggedUserDeploymentScriptController
  *
  * @package Acacha\Forge\Http\Controllers
  */
-class APILoggedUserAutoDeployController extends Controller
+class APILoggedUserDeploymentScriptController extends Controller
 {
 
     /**
@@ -32,13 +34,14 @@ class APILoggedUserAutoDeployController extends Controller
     }
 
     /**
-     * Enable autodeploy.
+     * Get deployment script.
      *
-     * @param StoreAutoDeploy $request
+     * @param ShowDeploymentScript $request
      * @param $serverId
      * @param $siteId
+     * @return string
      */
-    public function store(StoreAutoDeploy $request, $serverId, $siteId)
+    public function show(ShowDeploymentScript $request, $serverId, $siteId)
     {
         try {
             $this->forge->site($serverId, $siteId);
@@ -47,21 +50,20 @@ class APILoggedUserAutoDeployController extends Controller
         }
 
         try {
-            $this->forge->enableQuickDeploy($serverId, $siteId);
+            return $this->forge->siteDeploymentScript($serverId, $siteId);
         } catch (\Exception $e) {
-
+            abort(500,['message' => $e->getMessage()]);
         }
-
     }
 
     /**
-     * Disable autodeploy.
+     * Update deployment script.
      *
-     * @param DestroyAutoDeploy $request
+     * @param UpdateDeploymentScript $request
      * @param $serverId
      * @param $siteId
      */
-    public function destroy(DestroyAutoDeploy $request, $serverId, $siteId)
+    public function update(UpdateDeploymentScript $request, $serverId, $siteId)
     {
         try {
             $this->forge->site($serverId, $siteId);
@@ -69,7 +71,7 @@ class APILoggedUserAutoDeployController extends Controller
             abort(404,$e->getMessage());
         }
 
-        $this->forge->disableQuickDeploy($serverId, $siteId);
+        $this->forge->updateSiteDeploymentScript($serverId, $siteId, $request->only(['content']));
 
     }
 }

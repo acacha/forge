@@ -28,6 +28,8 @@ Route::group(['prefix' => 'v1','middleware' => 'auth:api'], function () {
     Route::post('/user/servers/{serverId}/keys',                             'APILoggedUserKeyController@store');
 
     Route::post('/user/servers/{serverId}/sites/{siteId}/deploy',            'APILoggedUserAutoDeployController@store');
+    Route::delete('/user/servers/{serverId}/sites/{siteId}/deploy',          'APILoggedUserAutoDeployController@destroy');
+
 
     Route::post('/user/servers/{serverId}/sites/{siteId}/certificates/letsencrypt',
                                                                                 'APILoggedUserLetsEncryptController@store');
@@ -40,6 +42,11 @@ Route::group(['prefix' => 'v1','middleware' => 'auth:api'], function () {
 
     Route::post('/user/servers/{serverId}/sites/{siteId}/deployment/deploy',
                                                                                 'APILoggedUserDeployController@store');
+
+    Route::get('/user/servers/{serverId}/sites/{siteId}/deployment/script',
+                                                                                'APILoggedUserDeploymentScriptController@show');
+    Route::put('/user/servers/{serverId}/sites/{siteId}/deployment/script',
+                                                                                'APILoggedUserDeploymentScriptController@update');
 
     Route::get('/user/servers/{serverId}/mysql',                            'APILoggedUserMysqlController@index');
     Route::get('/user/servers/{serverId}/mysql/{databaseId}',               'APILoggedUserMysqlController@show');
