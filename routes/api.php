@@ -41,11 +41,14 @@ Route::group(['prefix' => 'v1','middleware' => 'auth:api'], function () {
     Route::post('/user/servers/{serverId}/sites/{siteId}/deployment/deploy',
                                                                                 'APILoggedUserDeployController@store');
 
-    Route::get('/user/servers/{serverId}/mysql',                           'APILoggedUserMysqlController@index');
-
+    Route::get('/user/servers/{serverId}/mysql',                            'APILoggedUserMysqlController@index');
+    Route::get('/user/servers/{serverId}/mysql/{databaseId}',               'APILoggedUserMysqlController@show');
     Route::post('/user/servers/{serverId}/mysql',                           'APILoggedUserMysqlController@store');
 
 
+    Route::get('/user/servers/{serverId}/mysql_users',                      'APILoggedUserMysqlUsersController@index');
+    Route::get('/user/servers/{serverId}/mysql_users/{userId}',             'APILoggedUserMysqlUsersController@show');
+    Route::post('/user/servers/{serverId}/mysql_users',                     'APILoggedUserMysqlUsersController@store');
 
 
 });

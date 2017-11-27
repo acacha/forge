@@ -39,7 +39,12 @@ if (! function_exists('initialize_forge_management_permissions')) {
         permission_first_or_create('list-certificates');
         permission_first_or_create('deploy-site');
         permission_first_or_create('list-mysql');
+        permission_first_or_create('show-mysql');
         permission_first_or_create('create-mysql');
+        permission_first_or_create('list-mysql-users');
+        permission_first_or_create('show-mysql-user');
+        permission_first_or_create('create-mysql-user');
+
 
         give_permission_to_role($manageForge,'list-user-servers');
         give_permission_to_role($manageForge,'store-user-servers');
@@ -55,7 +60,12 @@ if (! function_exists('initialize_forge_management_permissions')) {
         give_permission_to_role($manageForge,'list-certificates');
         give_permission_to_role($manageForge,'deploy-site');
         give_permission_to_role($manageForge,'list-mysql');
+        give_permission_to_role($manageForge,'show-mysql');
         give_permission_to_role($manageForge,'create-mysql');
+        give_permission_to_role($manageForge,'list-mysql-users');
+        give_permission_to_role($manageForge,'show-mysql-user');
+        give_permission_to_role($manageForge,'create-mysql-user');
+
 
         //STUDENT ROLE
         permission_first_or_create('todo');
