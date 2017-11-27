@@ -69,7 +69,7 @@ class APILoggedUserDeploymentScriptController extends Controller
             abort(404,$e->getMessage());
         }
 
-        $this->forge->updateSiteDeploymentScript($serverId, $siteId, $request->only('content'));
+        $this->forge->updateSiteDeploymentScript($serverId, $siteId, $request->input('content'));
 
     }
 }
