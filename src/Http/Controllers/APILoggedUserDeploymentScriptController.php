@@ -2,9 +2,7 @@
 
 namespace Acacha\Forge\Http\Controllers;
 
-use Acacha\Forge\Http\Requests\DestroyAutoDeploy;
 use Acacha\Forge\Http\Requests\ShowDeploymentScript;
-use Acacha\Forge\Http\Requests\StoreAutoDeploy;
 use Acacha\Forge\Http\Requests\UpdateDeploymentScript;
 use Themsaid\Forge\Forge;
 
@@ -71,7 +69,7 @@ class APILoggedUserDeploymentScriptController extends Controller
             abort(404,$e->getMessage());
         }
 
-        $this->forge->updateSiteDeploymentScript($serverId, $siteId, $request->only(['content']));
+        $this->forge->updateSiteDeploymentScript($serverId, $siteId, $request->only('content'));
 
     }
 }
