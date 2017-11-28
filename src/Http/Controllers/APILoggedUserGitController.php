@@ -3,6 +3,7 @@
 namespace Acacha\Forge\Http\Controllers;
 
 use Acacha\Forge\Http\Requests\StoreGitRepository;
+use Log;
 use Themsaid\Forge\Forge;
 
 /**
@@ -48,6 +49,10 @@ class APILoggedUserGitController extends Controller
         $provider = $request->provider ? $request->provider : 'github';
         $branch = $request->branch ? $request->branch : 'master';
 
+        Log::info("provider: " . $provider);
+        Log::info("repository: " . $request->repository);
+        Log::info("branch: " . $branch);
+        
         $site->installGitRepository([
             "provider" => $provider,
             "repository" => $request->repository,
