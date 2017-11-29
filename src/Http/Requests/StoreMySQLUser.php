@@ -22,8 +22,12 @@ class StoreMySQLUser extends FormRequest
      */
     public function authorize()
     {
-        if ($this->isServerAssignedToUserAndValid($this->serverId)) return true;
-        if (Auth::user()->can('create-mysql-user')) return true;
+        if ($this->isServerAssignedToUserAndValid($this->serverId)) {
+            return true;
+        }
+        if (Auth::user()->can('create-mysql-user')) {
+            return true;
+        }
         return false;
     }
 

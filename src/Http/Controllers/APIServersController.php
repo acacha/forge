@@ -45,5 +45,4 @@ class APIServersController extends Controller
         }
         return $servers;
     }
-
 }

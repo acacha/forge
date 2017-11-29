@@ -19,8 +19,12 @@ class ServerSitesStore extends FormRequest
      */
     public function authorize()
     {
-        if ( $this->serverIsOwnedByUser() ) return true;
-        if ( Auth::user()->can('create-server-sites')) return true;
+        if ($this->serverIsOwnedByUser()) {
+            return true;
+        }
+        if (Auth::user()->can('create-server-sites')) {
+            return true;
+        }
         return false;
     }
 

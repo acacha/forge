@@ -43,7 +43,7 @@ class APILoggedUserGitController extends Controller
         try {
             $site = $this->forge->site($serverId, $siteId);
         } catch (\Exception $e) {
-            abort(404,$e->getMessage());
+            abort(404, $e->getMessage());
         }
 
         $provider = $request->provider ? $request->provider : 'github';

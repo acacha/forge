@@ -22,8 +22,12 @@ class UpdateDeploymentScript extends FormRequest
      */
     public function authorize()
     {
-        if ($this->isServerAssignedToUserAndValid($this->serverId)) return true;
-        if (Auth::user()->can('update-deployment-script')) return true;
+        if ($this->isServerAssignedToUserAndValid($this->serverId)) {
+            return true;
+        }
+        if (Auth::user()->can('update-deployment-script')) {
+            return true;
+        }
         return false;
     }
 

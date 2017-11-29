@@ -7,5 +7,4 @@ namespace Acacha\Forge;
  */
 class AcachaForge
 {
-
 }

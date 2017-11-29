@@ -29,8 +29,9 @@ class ApiLoggedUserServersControllerTest extends TestCase
      * Guests users cannot see his servers
      * @test
      */
-    public function guest_users_cannot_see_his_servers() {
-        $response = $this->json('GET','/api/v1/user/servers');
+    public function guest_users_cannot_see_his_servers()
+    {
+        $response = $this->json('GET', '/api/v1/user/servers');
         $response->assertStatus(401);
     }
 
@@ -38,7 +39,8 @@ class ApiLoggedUserServersControllerTest extends TestCase
      * Users can see his servers
      * @test
      */
-    public function users_can_see_his_valid_servers() {
+    public function users_can_see_his_valid_servers()
+    {
         $user = factory(User::class)->create();
 
         factory(Server::class)->create([
@@ -59,10 +61,10 @@ class ApiLoggedUserServersControllerTest extends TestCase
         ]);
 
 
-        $this->actingAs($user,'api');
+        $this->actingAs($user, 'api');
 
-        $response = $this->json('GET','/api/v1/user/servers');
-        $this->assertEquals(count(json_decode($response->getContent())) , 2);
+        $response = $this->json('GET', '/api/v1/user/servers');
+        $this->assertEquals(count(json_decode($response->getContent())), 2);
         $response->assertSuccessful();
         $response->assertJsonStructure([[
             'id',

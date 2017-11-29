@@ -19,8 +19,12 @@ class DestroyUserServers extends FormRequest
      */
     public function authorize()
     {
-        if ( Auth::user()->id === $this->user->id ) return true;
-        if (Auth::user()->can('store-user-servers')) return true;
+        if (Auth::user()->id === $this->user->id) {
+            return true;
+        }
+        if (Auth::user()->can('store-user-servers')) {
+            return true;
+        }
         return false;
     }
 

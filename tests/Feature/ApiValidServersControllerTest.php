@@ -13,7 +13,7 @@ use Acacha\Forge\Models\Server;
  *
  * @package Tests\Feature
  */
-class ApiValidServersControllerTest  extends TestCase
+class ApiValidServersControllerTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -35,13 +35,13 @@ class ApiValidServersControllerTest  extends TestCase
         $server = factory(Server::class)->create();
         $user = $server->user;
 
-        $response = $this->json('POST','/users/' . $user->id . '/servers/' . $server->id . '/validate', [
+        $response = $this->json('POST', '/users/' . $user->id . '/servers/' . $server->id . '/validate', [
             'token' => $server->token
         ]);
 
         $response->assertSuccessful();
 
-        $this->assertDatabaseHas('servers',[
+        $this->assertDatabaseHas('servers', [
             'id' => $server->id,
             'name' => $server->name,
             'forge_id' => $server->forge_id,
@@ -61,11 +61,11 @@ class ApiValidServersControllerTest  extends TestCase
         $server = factory(Server::class)->create();
         $user = $server->user;
 
-        $response = $this->json('GET','/users/' . $user->id . '/servers/' . $server->id . '/validate?token=' .  $server->token);
+        $response = $this->json('GET', '/users/' . $user->id . '/servers/' . $server->id . '/validate?token=' .  $server->token);
 
         $response->assertSuccessful();
 
-        $this->assertDatabaseHas('servers',[
+        $this->assertDatabaseHas('servers', [
             'id' => $server->id,
             'name' => $server->name,
             'forge_id' => $server->forge_id,
@@ -90,7 +90,7 @@ class ApiValidServersControllerTest  extends TestCase
         $server = factory(Server::class)->create();
         $user = $server->user;
 
-        $response = $this->json('POST','/users/' . $user->id . '/servers/' . $server->id . '/validate', [
+        $response = $this->json('POST', '/users/' . $user->id . '/servers/' . $server->id . '/validate', [
             'token' => '4243asdaseq3123wdsa'
         ]);
 
@@ -109,7 +109,7 @@ class ApiValidServersControllerTest  extends TestCase
         $server->save();
         $user = $server->user;
 
-        $response = $this->json('POST','/users/' . $user->id . '/servers/' . $server->id . '/validate', [
+        $response = $this->json('POST', '/users/' . $user->id . '/servers/' . $server->id . '/validate', [
             'token' => $server->token
         ]);
 
@@ -128,9 +128,9 @@ class ApiValidServersControllerTest  extends TestCase
         $user = $server->user;
         $manager = factory(User::class)->create();
         $manager->assignRole('manage-forge');
-        $this->actingAs($manager,'api');
+        $this->actingAs($manager, 'api');
 
-        $response = $this->json('DELETE','/api/v1/users/' . $user->id . '/servers/' . $server->id . '/validate', [
+        $response = $this->json('DELETE', '/api/v1/users/' . $user->id . '/servers/' . $server->id . '/validate', [
             'token' => $server->token
         ]);
 
@@ -149,13 +149,13 @@ class ApiValidServersControllerTest  extends TestCase
         $user = $server->user;
         $manager = factory(User::class)->create();
         $manager->assignRole('manage-forge');
-        $this->actingAs($manager,'api');
+        $this->actingAs($manager, 'api');
 
-        $response = $this->json('POST','api/v1/users/' . $user->id . '/servers/' . $server->id . '/validate');
+        $response = $this->json('POST', 'api/v1/users/' . $user->id . '/servers/' . $server->id . '/validate');
 
         $response->assertSuccessful();
 
-        $this->assertDatabaseHas('servers',[
+        $this->assertDatabaseHas('servers', [
             'id' => $server->id,
             'name' => $server->name,
             'forge_id' => $server->forge_id,
@@ -179,13 +179,13 @@ class ApiValidServersControllerTest  extends TestCase
         $user = $server->user;
         $manager = factory(User::class)->create();
         $manager->assignRole('manage-forge');
-        $this->actingAs($manager,'api');
+        $this->actingAs($manager, 'api');
 
-        $response = $this->json('DELETE','api/v1/users/' . $user->id . '/servers/' . $server->id . '/validate');
+        $response = $this->json('DELETE', 'api/v1/users/' . $user->id . '/servers/' . $server->id . '/validate');
 
         $response->assertSuccessful();
 
-        $this->assertDatabaseHas('servers',[
+        $this->assertDatabaseHas('servers', [
             'id' => $server->id,
             'name' => $server->name,
             'forge_id' => $server->forge_id,
@@ -193,7 +193,7 @@ class ApiValidServersControllerTest  extends TestCase
             'state' => 'pending',
         ]);
 
-        $this->assertDatabaseMissing('servers',[
+        $this->assertDatabaseMissing('servers', [
             'id' => $server->id,
             'name' => $server->name,
             'forge_id' => $server->forge_id,
@@ -206,6 +206,4 @@ class ApiValidServersControllerTest  extends TestCase
 
         $this->assertNotEmpty(Server::findOrFail($server->id)->token);
     }
-
-
 }

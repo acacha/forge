@@ -22,8 +22,12 @@ class ShowMySQL extends FormRequest
      */
     public function authorize()
     {
-        if ($this->isServerAssignedToUserAndValid($this->serverId)) return true;
-        if (Auth::user()->can('show-mysql')) return true;
+        if ($this->isServerAssignedToUserAndValid($this->serverId)) {
+            return true;
+        }
+        if (Auth::user()->can('show-mysql')) {
+            return true;
+        }
         return false;
     }
 

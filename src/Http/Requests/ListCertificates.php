@@ -22,8 +22,12 @@ class ListCertificates extends FormRequest
      */
     public function authorize()
     {
-        if ($this->isServerAssignedToUserAndValid($this->serverId)) return true;
-        if (Auth::user()->can('list-certificates')) return true;
+        if ($this->isServerAssignedToUserAndValid($this->serverId)) {
+            return true;
+        }
+        if (Auth::user()->can('list-certificates')) {
+            return true;
+        }
         return false;
     }
 

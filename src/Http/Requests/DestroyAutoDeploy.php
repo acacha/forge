@@ -22,8 +22,12 @@ class DestroyAutoDeploy extends FormRequest
      */
     public function authorize()
     {
-        if ($this->isServerAssignedToUserAndValid($this->serverId)) return true;
-        if (Auth::user()->can('disable-auto-deploy')) return true;
+        if ($this->isServerAssignedToUserAndValid($this->serverId)) {
+            return true;
+        }
+        if (Auth::user()->can('disable-auto-deploy')) {
+            return true;
+        }
         return false;
     }
 

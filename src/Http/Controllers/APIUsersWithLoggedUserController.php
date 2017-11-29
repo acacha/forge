@@ -21,12 +21,11 @@ class APIUsersWithLoggedUserController extends Controller
      */
     public function index(ListUsers $request)
     {
-        return array_merge( [
+        return array_merge([
                 'logged' => Auth::guard('api')->user()
             ],
             [
                 'users' => User::all()->toArray()
             ]);
     }
-
 }
