@@ -14,7 +14,6 @@ use Themsaid\Forge\Forge;
  */
 class AcachaForgeServiceProvider extends ServiceProvider
 {
-
     const NAMESPACE = 'Acacha\Forge\Http\Controllers';
 
     public function register()
@@ -40,7 +39,6 @@ class AcachaForgeServiceProvider extends ServiceProvider
         $this->app->singleton(Forge::class, function () {
             return new Forge(env('FORGE_API_TOKEN'));
         });
-
     }
 
     /**
@@ -72,7 +70,8 @@ class AcachaForgeServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    private function defineWebRoutes() {
+    private function defineWebRoutes()
+    {
         $this->app->make('router')->middleware('web')
             ->namespace(AcachaForgeServiceProvider::NAMESPACE)
             ->group(ACACHA_FORGE_PATH .'/routes/web.php');
@@ -108,7 +107,8 @@ class AcachaForgeServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(ACACHA_FORGE_PATH.'/database/migrations');
     }
 
-    private function registerEventListeners() {
+    private function registerEventListeners()
+    {
         $this->app->make('events')->listen(
             ServerRequestPermissionHasBeenAsked::class,
             SendNotificationServerHasBeenAssignedToUserToManager::class

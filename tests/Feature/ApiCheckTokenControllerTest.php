@@ -32,14 +32,14 @@ class ApiCheckTokenControllerTest extends TestCase
      */
     public function logged_user_can_check_token()
     {
-       $user = factory(User::class)->create();
+        $user = factory(User::class)->create();
 
-       $this->actingAs($user,'api');
+        $this->actingAs($user, 'api');
 
-       $response = $this->json('GET','/api/v1/check_token');
-       $response->assertJson([
+        $response = $this->json('GET', '/api/v1/check_token');
+        $response->assertJson([
           'message' => 'Token is valid'
        ]);
-       $response->assertSuccessful();
+        $response->assertSuccessful();
     }
 }

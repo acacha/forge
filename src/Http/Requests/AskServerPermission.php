@@ -19,8 +19,12 @@ class AskServerPermission extends FormRequest
      */
     public function authorize()
     {
-        if ( Auth::user()->id === $this->user->id && $this->userHasServerAssigned() ) return true;
-        if ( Auth::user()->can('ask-server-permissions')) return true;
+        if (Auth::user()->id === $this->user->id && $this->userHasServerAssigned()) {
+            return true;
+        }
+        if (Auth::user()->can('ask-server-permissions')) {
+            return true;
+        }
         return false;
     }
 
@@ -31,7 +35,7 @@ class AskServerPermission extends FormRequest
      */
     protected function userHasServerAssigned()
     {
-        return in_array($this->forgeserver->id,$this->user->servers->pluck('id')->toArray());
+        return in_array($this->forgeserver->id, $this->user->servers->pluck('id')->toArray());
     }
 
     /**

@@ -30,8 +30,9 @@ class APILoggedUserKeysControllerTest extends TestCase
      *
      * @test
      */
-    public function guest_users_cannot_post_git_repos() {
-        $response = $this->json('POST','/api/v1/user/servers/1568/keys');
+    public function guest_users_cannot_post_git_repos()
+    {
+        $response = $this->json('POST', '/api/v1/user/servers/1568/keys');
         $response->assertStatus(401);
     }
 
@@ -40,7 +41,8 @@ class APILoggedUserKeysControllerTest extends TestCase
      *
      * @test
      */
-    public function not_authorized_to_create_git_repositories_on_non_owned_servers() {
+    public function not_authorized_to_create_git_repositories_on_non_owned_servers()
+    {
         $user = factory(User::class)->create();
 
         factory(Server::class)->create([
@@ -48,8 +50,8 @@ class APILoggedUserKeysControllerTest extends TestCase
             'forge_id' => 1568,
             'state' => 'valid'
         ]);
-        $this->actingAs($user,'api');
-        $response = $this->json('POST','/api/v1/user/servers/9999/keys');
+        $this->actingAs($user, 'api');
+        $response = $this->json('POST', '/api/v1/user/servers/9999/keys');
         $response->assertStatus(403);
     }
 
@@ -58,7 +60,8 @@ class APILoggedUserKeysControllerTest extends TestCase
      *
      * @test
      */
-    public function check_validation() {
+    public function check_validation()
+    {
         $user = factory(User::class)->create();
 
         factory(Server::class)->create([
@@ -66,8 +69,8 @@ class APILoggedUserKeysControllerTest extends TestCase
             'forge_id' => 1568,
             'state' => 'valid'
         ]);
-        $this->actingAs($user,'api');
-        $response = $this->json('POST','/api/v1/user/servers/1568/keys');
+        $this->actingAs($user, 'api');
+        $response = $this->json('POST', '/api/v1/user/servers/1568/keys');
         $response->assertStatus(422);
         $response->assertJson([
             'message' => "The given data was invalid.",
@@ -102,6 +105,4 @@ class APILoggedUserKeysControllerTest extends TestCase
 //        ]);
 //        $response->assertSuccessful();
 //    }
-
-
 }

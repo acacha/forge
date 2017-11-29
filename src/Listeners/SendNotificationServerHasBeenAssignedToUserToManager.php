@@ -24,6 +24,5 @@ class SendNotificationServerHasBeenAssignedToUserToManager
     {
         resolve(\Illuminate\Notifications\ChannelManager::class)
             ->send(null, new ServerPermissionRequested($event->server));
-
     }
 }

@@ -30,8 +30,9 @@ class APILoggedUserGitControllerTest extends TestCase
      *
      * @test
      */
-    public function guest_users_cannot_post_git_repos() {
-        $response = $this->json('POST','/api/v1/user/servers/1568/sites/5986/git');
+    public function guest_users_cannot_post_git_repos()
+    {
+        $response = $this->json('POST', '/api/v1/user/servers/1568/sites/5986/git');
         $response->assertStatus(401);
     }
 
@@ -60,7 +61,8 @@ class APILoggedUserGitControllerTest extends TestCase
      *
      * @test
      */
-    public function check_validation() {
+    public function check_validation()
+    {
         $user = factory(User::class)->create();
 
         factory(Server::class)->create([
@@ -68,8 +70,8 @@ class APILoggedUserGitControllerTest extends TestCase
             'forge_id' => 1568,
             'state' => 'valid'
         ]);
-        $this->actingAs($user,'api');
-        $response = $this->json('POST','/api/v1/user/servers/1568/sites/5986/git');
+        $this->actingAs($user, 'api');
+        $response = $this->json('POST', '/api/v1/user/servers/1568/sites/5986/git');
         $response->assertStatus(422);
         $response->assertJson([
             'message' => "The given data was invalid.",
@@ -86,7 +88,8 @@ class APILoggedUserGitControllerTest extends TestCase
      *
      * @test
      */
-    public function resource_not_found_on_unexisting_site() {
+    public function resource_not_found_on_unexisting_site()
+    {
         $user = factory(User::class)->create();
 
         factory(Server::class)->create([
@@ -94,8 +97,8 @@ class APILoggedUserGitControllerTest extends TestCase
             'forge_id' => 1568,
             'state' => 'valid'
         ]);
-        $this->actingAs($user,'api');
-        $response = $this->json('POST','/api/v1/user/servers/1568/sites/99999/git', [
+        $this->actingAs($user, 'api');
+        $response = $this->json('POST', '/api/v1/user/servers/1568/sites/99999/git', [
             'repository' => 'acacha/prova'
         ]);
         $response->assertStatus(404);
@@ -120,5 +123,4 @@ class APILoggedUserGitControllerTest extends TestCase
 //        ]);
 //        $response->assertSuccessful();
 //    }
-
 }

@@ -22,5 +22,4 @@ class APIUsersController extends Controller
     {
         return User::all();
     }
-
 }

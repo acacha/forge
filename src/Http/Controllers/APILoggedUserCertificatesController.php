@@ -33,7 +33,7 @@ class APILoggedUserCertificatesController extends Controller
     /**
      * List certificates.
      */
-    protected function index(ListCertificates $request,$serverId, $siteId)
+    protected function index(ListCertificates $request, $serverId, $siteId)
     {
         return $this->forge->certificates($serverId, $siteId);
     }

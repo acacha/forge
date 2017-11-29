@@ -41,7 +41,6 @@ class APIServerSitesController extends Controller
      */
     public function store(ServerSitesStore $request, $forge_server)
     {
-        return (array) $this->forge->createSite($forge_server, $request->only(['domain','project_type','directory']),false);
+        return (array) $this->forge->createSite($forge_server, $request->only(['domain','project_type','directory']), false);
     }
-
 }

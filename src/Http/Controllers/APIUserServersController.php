@@ -82,8 +82,8 @@ class APIUserServersController extends Controller
             'state' => 'pending'
         ]);
 
-        if(! $server->wasRecentlyCreated){
-            abort(400,'The server has been already assigned to user!');
+        if (! $server->wasRecentlyCreated) {
+            abort(400, 'The server has been already assigned to user!');
         }
 
         $server->token = Str::random(60);
@@ -109,7 +109,9 @@ class APIUserServersController extends Controller
             ['forge_id' , $forge_id],
         ])->first();
 
-        if(!$server) abort(404, 'No server found assigned to the specified user');
+        if (!$server) {
+            abort(404, 'No server found assigned to the specified user');
+        }
 
         $server->delete();
 
@@ -117,5 +119,4 @@ class APIUserServersController extends Controller
 
         return $server;
     }
-
 }

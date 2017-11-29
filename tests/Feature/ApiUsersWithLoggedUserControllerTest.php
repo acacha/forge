@@ -12,7 +12,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
  *
  * @package Tests\Feature
  */
-class APIUsersWithLoggedUserControllerTest extends TestCase
+class ApiUsersWithLoggedUserControllerTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -33,12 +33,12 @@ class APIUsersWithLoggedUserControllerTest extends TestCase
     public function logged_user_can_list_users()
     {
         // Prepare
-        factory(User::class,2)->create();
+        factory(User::class, 2)->create();
         $user = factory(User::class)->create();
-        $this->actingAs($user,'api');
+        $this->actingAs($user, 'api');
 
         //Execute
-        $response = $this->json('GET','api/v1/users_with_logged_user/');
+        $response = $this->json('GET', 'api/v1/users_with_logged_user/');
         $response->assertSuccessful();
         $response->assertJsonStructure([
             'logged' => [
@@ -52,6 +52,5 @@ class APIUsersWithLoggedUserControllerTest extends TestCase
                 'email'
             ]]
         ]);
-
     }
 }

@@ -56,10 +56,10 @@ class ApiServerSitesControllerTest extends TestCase
         // Prepare
         $server = factory(Server::class)->create();
         $user = factory(User::class)->create();
-        $this->actingAs($user,'api');
+        $this->actingAs($user, 'api');
 
         //Execute
-        $response = $this->json('POST','api/v1/servers/' . $server->id . '/sites',[
+        $response = $this->json('POST', 'api/v1/servers/' . $server->id . '/sites', [
             'domain' => 'site.com',
             'project_type' => 'php',
             'directory' => '/test'
@@ -85,10 +85,10 @@ class ApiServerSitesControllerTest extends TestCase
         $domain = ' prova.com';
         $directory = "/prova.com";
 
-        $this->actingAs($server->user,'api');
+        $this->actingAs($server->user, 'api');
 
         //Execute
-        $response = $this->json('POST','api/v1/servers/' . $server->id . '/sites',[
+        $response = $this->json('POST', 'api/v1/servers/' . $server->id . '/sites', [
             'domain' => $domain,
             'project_type' => 'php',
             'directory' => $directory
@@ -118,7 +118,6 @@ class ApiServerSitesControllerTest extends TestCase
                 'created_at'
             ]
         ]);
-
     }
 
     /**
@@ -133,10 +132,10 @@ class ApiServerSitesControllerTest extends TestCase
         $server = factory(Server::class)->create();
         $manager = factory(User::class)->create();
         $manager->assignRole('manage-forge');
-        $this->actingAs($manager,'api');
+        $this->actingAs($manager, 'api');
 
         //Execute
-        $response = $this->json('POST','api/v1/servers/' . $server->id . '/sites',[
+        $response = $this->json('POST', 'api/v1/servers/' . $server->id . '/sites', [
             'domain' => 'site.com',
             'project_type' => 'php',
             'directory' => '/test'
@@ -164,6 +163,5 @@ class ApiServerSitesControllerTest extends TestCase
                 'created_at'
             ]
         ]);
-
     }
 }

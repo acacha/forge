@@ -43,7 +43,7 @@ class APILoggedUserMysqlController extends Controller
         try {
             return $this->forge->mysqlDatabases($serverId);
         } catch (\Exception $e) {
-            abort(500,$e->getMessage());
+            abort(500, $e->getMessage());
         }
     }
 
@@ -59,7 +59,7 @@ class APILoggedUserMysqlController extends Controller
         try {
             return $this->forge->mysqlDatabase($serverId, $databaseId);
         } catch (\Exception $e) {
-            abort(500,$e->getMessage());
+            abort(500, $e->getMessage());
         }
     }
 
@@ -71,11 +71,10 @@ class APILoggedUserMysqlController extends Controller
      */
     protected function store(StoreMySQL $request, $serverId)
     {
-
         try {
             $this->forge->createMysqlDatabase($serverId, $request->only(['name','user','password']), false);
         } catch (\Exception $e) {
-            abort(500,$e->getMessage());
+            abort(500, $e->getMessage());
         }
     }
 }

@@ -42,11 +42,11 @@ class APILoggedUserActiveCertificateController extends Controller
         try {
             $this->forge->site($serverId, $siteId);
         } catch (\Exception $e) {
-            abort(404,$e->getMessage());
+            abort(404, $e->getMessage());
         }
 
         try {
-            $this->forge->activateCertificate($serverId, $siteId, $certificateId ,false);
+            $this->forge->activateCertificate($serverId, $siteId, $certificateId, false);
         } catch (\Exception $e) {
             abort(500, $e->getMessage());
         }

@@ -35,6 +35,5 @@ class APILoggedUserSitesController extends Controller
     public function index(ListSites $request, $serverId)
     {
         return $this->forge->sites($serverId);
-
     }
 }

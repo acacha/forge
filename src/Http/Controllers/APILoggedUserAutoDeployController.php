@@ -43,15 +43,13 @@ class APILoggedUserAutoDeployController extends Controller
         try {
             $this->forge->site($serverId, $siteId);
         } catch (\Exception $e) {
-            abort(404,$e->getMessage());
+            abort(404, $e->getMessage());
         }
 
         try {
             $this->forge->enableQuickDeploy($serverId, $siteId);
         } catch (\Exception $e) {
-
         }
-
     }
 
     /**
@@ -66,10 +64,9 @@ class APILoggedUserAutoDeployController extends Controller
         try {
             $this->forge->site($serverId, $siteId);
         } catch (\Exception $e) {
-            abort(404,$e->getMessage());
+            abort(404, $e->getMessage());
         }
 
         $this->forge->disableQuickDeploy($serverId, $siteId);
-
     }
 }

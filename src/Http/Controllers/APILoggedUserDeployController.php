@@ -1,6 +1,7 @@
 <?php
 
 namespace Acacha\Forge\Http\Controllers;
+
 use Acacha\Forge\Http\Requests\StoreDeploy;
 use Themsaid\Forge\Forge;
 
@@ -40,13 +41,13 @@ class APILoggedUserDeployController extends Controller
         try {
             $site = $this->forge->site($serverId, $siteId);
         } catch (\Exception $e) {
-            abort(404,$e->getMessage());
+            abort(404, $e->getMessage());
         }
 
         try {
             $site->deploySite();
         } catch (\Exception $e) {
-            abort(500,$e->getMessage());
+            abort(500, $e->getMessage());
         }
     }
 }
