@@ -23,8 +23,12 @@ class StoreGitRepository extends FormRequest
     public function authorize()
     {
         return true;
-        if ($this->isServerAssignedToUserAndValid($this->serverId)) return true;
-        if (Auth::user()->can('install-git-repositories')) return true;
+        if ($this->isServerAssignedToUserAndValid($this->serverId)) {
+            return true;
+        }
+        if (Auth::user()->can('install-git-repositories')) {
+            return true;
+        }
         return false;
     }
 

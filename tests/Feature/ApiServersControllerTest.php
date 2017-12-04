@@ -12,7 +12,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
  *
  * @package Tests\Feature
  */
-class ApiServerControllerTest extends TestCase
+class ApiServersControllerTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -34,10 +34,10 @@ class ApiServerControllerTest extends TestCase
     {
         // Prepare
         $user = factory(User::class)->create();
-        $this->actingAs($user,'api');
+        $this->actingAs($user, 'api');
 
         //Execute
-        $response = $this->json('GET','api/v1/servers/');
+        $response = $this->json('GET', 'api/v1/servers/');
 
         $response->assertSuccessful();
         $response->assertJsonStructure([[
@@ -45,6 +45,5 @@ class ApiServerControllerTest extends TestCase
             'name',
             'ipAddress'
         ]]);
-
     }
 }

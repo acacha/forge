@@ -29,7 +29,6 @@ class APIPendingServersController extends Controller
             resolve(\Illuminate\Notifications\ChannelManager::class)->send(null, new ServerPermissionRequested($forgeserver));
             return $forgeserver;
         }
-        abort(400,'Server is already validated');
+        abort(400, 'Server is already validated');
     }
-
 }

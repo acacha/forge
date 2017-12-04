@@ -44,13 +44,13 @@ class APILoggedUserDeploymentScriptController extends Controller
         try {
             $this->forge->site($serverId, $siteId);
         } catch (\Exception $e) {
-            abort(404,$e->getMessage());
+            abort(404, $e->getMessage());
         }
 
         try {
             return $this->forge->siteDeploymentScript($serverId, $siteId);
         } catch (\Exception $e) {
-            abort(500,['message' => $e->getMessage()]);
+            abort(500, ['message' => $e->getMessage()]);
         }
     }
 
@@ -66,10 +66,9 @@ class APILoggedUserDeploymentScriptController extends Controller
         try {
             $this->forge->site($serverId, $siteId);
         } catch (\Exception $e) {
-            abort(404,$e->getMessage());
+            abort(404, $e->getMessage());
         }
 
         $this->forge->updateSiteDeploymentScript($serverId, $siteId, $request->input('content'));
-
     }
 }

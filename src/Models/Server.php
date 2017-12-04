@@ -2,7 +2,6 @@
 
 namespace Acacha\Forge\Models;
 
-use Acacha\Forge\Models\Scopes\ValidScope;
 use Acacha\Stateful\Contracts\Stateful;
 use Acacha\Stateful\Traits\StatefulTrait;
 use App\User;

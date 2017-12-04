@@ -12,7 +12,7 @@ use Acacha\Forge\Models\Server;
  *
  * @package Tests\Feature
  */
-class ApiPendingServersControllerTest  extends TestCase
+class ApiPendingServersControllerTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -33,9 +33,9 @@ class ApiPendingServersControllerTest  extends TestCase
     {
         $server = factory(Server::class)->create();
         $user = $server->user;
-        $this->actingAs($user,'api');
+        $this->actingAs($user, 'api');
 
-        $response = $this->json('POST','api/v1/users/' . $user->id . '/servers/' . $server->id . '/ask_permission');
+        $response = $this->json('POST', 'api/v1/users/' . $user->id . '/servers/' . $server->id . '/ask_permission');
 //        $response->dump();
         $response->assertSuccessful();
     }

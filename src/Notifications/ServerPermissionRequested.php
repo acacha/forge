@@ -69,7 +69,6 @@ class ServerPermissionRequested extends Notification
             ->to(env('TELEGRAM_ACACHA_FORGE_MANAGERS_CHAT_ID'))
             ->content("New  server permission has been requested\n User: $user \n  id: $user_id \n  email: $user_email  \n Server: $server \n  id: $server_forge_id")
             ->button('Accept', $url);
-
     }
 
     /**

@@ -22,8 +22,12 @@ class ShowDeploymentScript extends FormRequest
      */
     public function authorize()
     {
-        if ($this->isServerAssignedToUserAndValid($this->serverId)) return true;
-        if (Auth::user()->can('show-deployment-script')) return true;
+        if ($this->isServerAssignedToUserAndValid($this->serverId)) {
+            return true;
+        }
+        if (Auth::user()->can('show-deployment-script')) {
+            return true;
+        }
         return false;
     }
 

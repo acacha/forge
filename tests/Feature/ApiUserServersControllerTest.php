@@ -39,10 +39,10 @@ class ApiUserServersControllerTest extends TestCase
         // Prepare
         $user = factory(User::class)->create();
         $otherUser = factory(User::class)->create();
-        $this->actingAs($user,'api');
+        $this->actingAs($user, 'api');
 
         //Execute
-        $response = $this->json('POST','api/v1/users/' . $otherUser->id . '/servers', [
+        $response = $this->json('POST', 'api/v1/users/' . $otherUser->id . '/servers', [
             'server_id' => 1
         ]);
         $response->assertStatus(403);
@@ -58,14 +58,14 @@ class ApiUserServersControllerTest extends TestCase
     {
         // Prepare
         $user = factory(User::class)->create();
-        $this->actingAs($user,'api');
+        $this->actingAs($user, 'api');
 
         $forge_id = random_forge_server()->id;
 
         Event::fake();
 
         //Execute
-        $response = $this->json('POST','api/v1/users/' . $user->id . '/servers', [
+        $response = $this->json('POST', 'api/v1/users/' . $user->id . '/servers', [
             'server_id' => $forge_id
         ]);
 
@@ -94,7 +94,6 @@ class ApiUserServersControllerTest extends TestCase
                    $event->server->user_id === $server['user_id'] &&
                    $event->server->state === $server['state'];
         });
-
     }
 
     /**
@@ -106,16 +105,15 @@ class ApiUserServersControllerTest extends TestCase
     public function cannot_unassign_a_non_assigned_server()
     {
         $user = factory(User::class)->create();
-        $this->actingAs($user,'api');
+        $this->actingAs($user, 'api');
 
         $forge_id = random_forge_server()->id;
 
         //Execute
-        $response = $this->json('DELETE','api/v1/users/' . $user->id . '/servers/' . $forge_id);
+        $response = $this->json('DELETE', 'api/v1/users/' . $user->id . '/servers/' . $forge_id);
 
         $response->assertStatus(404);
-        $this->assertContains('No server found assigned to the specified user',json_decode($response->getContent())->message);
-
+        $this->assertContains('No server found assigned to the specified user', json_decode($response->getContent())->message);
     }
 
     /**
@@ -128,7 +126,7 @@ class ApiUserServersControllerTest extends TestCase
     {
         $server = factory(Server::class)->create();
         $user = $server->user;
-        $this->actingAs($user,'api');
+        $this->actingAs($user, 'api');
 
         Event::fake();
 
@@ -147,7 +145,7 @@ class ApiUserServersControllerTest extends TestCase
 
         $response->assertJsonMissing([ 'token' ]);
         $serverResponse = $response->decodeResponseJson();
-         $this->assertDatabaseMissing('servers', [
+        $this->assertDatabaseMissing('servers', [
             'forge_id' => $server['forge_id'],
             'user_id' => $server['user_id'],
         ]);
@@ -178,11 +176,11 @@ class ApiUserServersControllerTest extends TestCase
         $user = factory(User::class)->create();
         $user->assignRole('manage-forge');
         $otherUser = factory(User::class)->create();
-        $this->actingAs($user,'api');
+        $this->actingAs($user, 'api');
 
         $forge_id = random_forge_server()->id;
         //Execute
-        $response = $this->json('POST','api/v1/users/' . $otherUser->id . '/servers', [
+        $response = $this->json('POST', 'api/v1/users/' . $otherUser->id . '/servers', [
             'server_id' => $forge_id
         ]);
 
@@ -198,7 +196,6 @@ class ApiUserServersControllerTest extends TestCase
             'user_id' => $otherUser->id,
             'state' => 'pending'
         ]);
-
     }
 
     /**
@@ -213,16 +210,16 @@ class ApiUserServersControllerTest extends TestCase
         $server = factory(Server::class)->create();
         $user = $server->user;
         $user->assignRole('manage-forge');
-        $this->actingAs($user,'api');
+        $this->actingAs($user, 'api');
 
 //        dd($server->forge_id);
 
         //Execute
-        $response = $this->json('POST','api/v1/users/' . $user->id . '/servers', [
+        $response = $this->json('POST', 'api/v1/users/' . $user->id . '/servers', [
             'server_id' => $server->forge_id
         ]);
         $response->assertStatus(400);
-        $this->assertContains('The server has been already assigned to user!',json_decode($response->getContent())->message);
+        $this->assertContains('The server has been already assigned to user!', json_decode($response->getContent())->message);
     }
 
     /**
@@ -251,10 +248,10 @@ class ApiUserServersControllerTest extends TestCase
         ]);
 
 
-        $this->actingAs($user,'api');
+        $this->actingAs($user, 'api');
 
-        $response = $this->json('GET','api/v1/users/' . $user->id . '/servers');
-        $this->assertEquals(count(json_decode($response->getContent())) , 3);
+        $response = $this->json('GET', 'api/v1/users/' . $user->id . '/servers');
+        $this->assertEquals(count(json_decode($response->getContent())), 3);
         $response->assertSuccessful();
         $response->assertJsonStructure([[
             'id',

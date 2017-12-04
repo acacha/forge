@@ -23,6 +23,24 @@ if (! function_exists('initialize_forge_management_permissions')) {
         //ROLES
         $manageForge = role_first_or_create('manage-forge');
         $student = role_first_or_create('student');
+        $teacher = role_first_or_create('teacher');
+
+        permission_first_or_create('show-assignment');
+        give_permission_to_role($teacher, 'show-assignment');
+        permission_first_or_create('list-assignment');
+        give_permission_to_role($teacher, 'list-assignment');
+        permission_first_or_create('store-assignment');
+        give_permission_to_role($teacher, 'store-assignment');
+        permission_first_or_create('update-assignment');
+        give_permission_to_role($teacher, 'update-assignment');
+        permission_first_or_create('destroy-assignment');
+        give_permission_to_role($teacher, 'destroy-assignment');
+        permission_first_or_create('assign-users-to-assignments');
+        give_permission_to_role($teacher, 'assign-users-to-assignments');
+        permission_first_or_create('assign-groups-to-assignments');
+        give_permission_to_role($teacher, 'assign-groups-to-assignments');
+
+
 
         //MANAGE FORGE ROLE
         permission_first_or_create('list-user-servers');
@@ -49,36 +67,35 @@ if (! function_exists('initialize_forge_management_permissions')) {
         permission_first_or_create('update-deployment-script');
 
 
-        give_permission_to_role($manageForge,'list-user-servers');
-        give_permission_to_role($manageForge,'store-user-servers');
-        give_permission_to_role($manageForge,'ask-server-permissions');
-        give_permission_to_role($manageForge,'validate-server-permissions');
-        give_permission_to_role($manageForge,'create-server-sites');
-        give_permission_to_role($manageForge,'install-git-repositories');
-        give_permission_to_role($manageForge,'install-ssh-keys');
-        give_permission_to_role($manageForge,'enable-auto-deploy');
-        give_permission_to_role($manageForge,'disable-auto-deploy');
-        give_permission_to_role($manageForge,'obtain-lets-encrypt-certificate');
-        give_permission_to_role($manageForge,'activate-certificate');
-        give_permission_to_role($manageForge,'list-certificates');
-        give_permission_to_role($manageForge,'deploy-site');
-        give_permission_to_role($manageForge,'list-mysql');
-        give_permission_to_role($manageForge,'show-mysql');
-        give_permission_to_role($manageForge,'create-mysql');
-        give_permission_to_role($manageForge,'list-mysql-users');
-        give_permission_to_role($manageForge,'show-mysql-user');
-        give_permission_to_role($manageForge,'create-mysql-user');
+        give_permission_to_role($manageForge, 'list-user-servers');
+        give_permission_to_role($manageForge, 'store-user-servers');
+        give_permission_to_role($manageForge, 'ask-server-permissions');
+        give_permission_to_role($manageForge, 'validate-server-permissions');
+        give_permission_to_role($manageForge, 'create-server-sites');
+        give_permission_to_role($manageForge, 'install-git-repositories');
+        give_permission_to_role($manageForge, 'install-ssh-keys');
+        give_permission_to_role($manageForge, 'enable-auto-deploy');
+        give_permission_to_role($manageForge, 'disable-auto-deploy');
+        give_permission_to_role($manageForge, 'obtain-lets-encrypt-certificate');
+        give_permission_to_role($manageForge, 'activate-certificate');
+        give_permission_to_role($manageForge, 'list-certificates');
+        give_permission_to_role($manageForge, 'deploy-site');
+        give_permission_to_role($manageForge, 'list-mysql');
+        give_permission_to_role($manageForge, 'show-mysql');
+        give_permission_to_role($manageForge, 'create-mysql');
+        give_permission_to_role($manageForge, 'list-mysql-users');
+        give_permission_to_role($manageForge, 'show-mysql-user');
+        give_permission_to_role($manageForge, 'create-mysql-user');
 
-        give_permission_to_role($manageForge,'show-deployment-script');
-        give_permission_to_role($manageForge,'update-deployment-script');
+        give_permission_to_role($manageForge, 'show-deployment-script');
+        give_permission_to_role($manageForge, 'update-deployment-script');
 
 
         //STUDENT ROLE
         permission_first_or_create('todo');
-        give_permission_to_role($student,'todo');
+        give_permission_to_role($student, 'todo');
 
         app(PermissionRegistrar::class)->registerPermissions();
-
     }
 }
 
@@ -101,9 +118,9 @@ if (! function_exists('create_first_user')) {
     function create_first_user()
     {
         factory(User::class)->create([
-            'name' => env('ACACHA_FORGE_FIRST_USER_NAME','Sergi Tur Badenas'),
-            'email' => env('ACACHA_FORGE_FIRST_USER_EMAIL','sergiturbadenas@gmail.com'),
-            'password' => bcrypt(env('ACACHA_FORGE_FIRST_USER_PASSWORD','123456'))
+            'name' => env('ACACHA_FORGE_FIRST_USER_NAME', 'Sergi Tur Badenas'),
+            'email' => env('ACACHA_FORGE_FIRST_USER_EMAIL', 'sergiturbadenas@gmail.com'),
+            'password' => bcrypt(env('ACACHA_FORGE_FIRST_USER_PASSWORD', '123456'))
         ]);
     }
 }
@@ -194,9 +211,8 @@ if (! function_exists('notify_test')) {
     /**
      * Get forge servers
      */
-    function notify_test($to,$text)
+    function notify_test($to, $text)
     {
-
         $telegram = new Telegram(
             config('services.telegram-bot-api.token'),
             new HttpClient());
@@ -213,7 +229,7 @@ if (! function_exists('notify_server_permission_requested_alt')) {
     /**
      * Notify server permission requested alt.
      */
-    function notify_server_permission_requested_alt($user,$server)
+    function notify_server_permission_requested_alt($user, $server)
     {
         $telegram = new Telegram(
             config('services.telegram-bot-api.token'),
@@ -233,11 +249,11 @@ if (! function_exists('notify_server_permission_requested')) {
      *
      * Notify server permission requested.
      */
-    function notify_server_permission_requested( $server = null)
+    function notify_server_permission_requested($server = null)
     {
-        if ( ! $server ) $server = factory(Server::class)->create();
+        if (! $server) {
+            $server = factory(Server::class)->create();
+        }
         resolve(Illuminate\Notifications\ChannelManager::class)->send(null, new ServerPermissionRequested($server));
     }
 }
-
-

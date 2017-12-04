@@ -30,8 +30,9 @@ class APILoggedUserAutoDeployControllerTest extends TestCase
      *
      * @test
      */
-    public function guest_users_cannot_enable_auto_deploy() {
-        $response = $this->json('POST','/api/v1/user/servers/1568/sites/5986/deploy');
+    public function guest_users_cannot_enable_auto_deploy()
+    {
+        $response = $this->json('POST', '/api/v1/user/servers/1568/sites/5986/deploy');
         $response->assertStatus(401);
     }
 
@@ -40,7 +41,8 @@ class APILoggedUserAutoDeployControllerTest extends TestCase
      *
      * @test
      */
-    public function not_authorized_to_enable_autodeploy_on_non_owned_servers() {
+    public function not_authorized_to_enable_autodeploy_on_non_owned_servers()
+    {
         $user = factory(User::class)->create();
 
         factory(Server::class)->create([
@@ -48,8 +50,8 @@ class APILoggedUserAutoDeployControllerTest extends TestCase
             'forge_id' => 1568,
             'state' => 'valid'
         ]);
-        $this->actingAs($user,'api');
-        $response = $this->json('POST','/api/v1/user/servers/9999/sites/5986/deploy');
+        $this->actingAs($user, 'api');
+        $response = $this->json('POST', '/api/v1/user/servers/9999/sites/5986/deploy');
         $response->assertStatus(403);
     }
 
@@ -58,7 +60,8 @@ class APILoggedUserAutoDeployControllerTest extends TestCase
      *
      * @test
      */
-    public function resource_not_found_on_unexisting_site() {
+    public function resource_not_found_on_unexisting_site()
+    {
         $user = factory(User::class)->create();
 
         factory(Server::class)->create([
@@ -66,8 +69,8 @@ class APILoggedUserAutoDeployControllerTest extends TestCase
             'forge_id' => 1568,
             'state' => 'valid'
         ]);
-        $this->actingAs($user,'api');
-        $response = $this->json('POST','/api/v1/user/servers/1568/sites/99999/deploy');
+        $this->actingAs($user, 'api');
+        $response = $this->json('POST', '/api/v1/user/servers/1568/sites/99999/deploy');
         $response->assertStatus(404);
     }
 
@@ -88,5 +91,4 @@ class APILoggedUserAutoDeployControllerTest extends TestCase
 //        $response = $this->json('POST','/api/v1/user/servers/154577/sites/435202/deploy');
 //        $response->assertSuccessful();
 //    }
-
 }

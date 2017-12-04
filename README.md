@@ -7,6 +7,7 @@
 [![StyleCI](https://styleci.io/repos/109520799/shield?branch=master)](https://styleci.io/repos/109520799)
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
+[![StyleCI](https://styleci.io/repos/109520799/shield?branch=master)](https://styleci.io/repos/109520799)
 
 Forge-publish is a Laravel 5 package provided by acacha thats provides you with artisan commands to easily install the 
 current Laravel project into a Laravel Forge server.

@@ -21,5 +21,4 @@ trait ServerIsAssignedToUserAndValid
     {
         return in_array($serverId, Auth::user()->servers()->valid()->get()->pluck('forge_id')->toArray());
     }
-
 }

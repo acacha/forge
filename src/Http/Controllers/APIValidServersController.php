@@ -31,7 +31,7 @@ class APIValidServersController extends Controller
             $forgeserver->save();
             return view('acacha-forge::server_permission_approved', ['server' => $forgeserver]);
         }
-        abort(400,'Server is already validated');
+        abort(400, 'Server is already validated');
     }
 
     /**
@@ -50,7 +50,7 @@ class APIValidServersController extends Controller
             $forgeserver->save();
             return $forgeserver;
         }
-        abort(400,'Server is already validated');
+        abort(400, 'Server is already validated');
     }
 
     /**
@@ -69,7 +69,6 @@ class APIValidServersController extends Controller
             $forgeserver->save();
             return $forgeserver;
         }
-        abort(400,'Server is already unvalidated');
+        abort(400, 'Server is already unvalidated');
     }
-
 }

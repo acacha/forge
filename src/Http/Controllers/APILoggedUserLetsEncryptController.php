@@ -12,7 +12,7 @@ use Themsaid\Forge\Forge;
  *
  * @package Acacha\Forge\Http\Controllers
  */
-class ApiLoggedUserLetsEncryptController extends Controller
+class APILoggedUserLetsEncryptController extends Controller
 {
 
     /**
@@ -45,7 +45,7 @@ class ApiLoggedUserLetsEncryptController extends Controller
         try {
             $this->forge->site($serverId, $siteId);
         } catch (\Exception $e) {
-            abort(404,$e->getMessage());
+            abort(404, $e->getMessage());
         }
 
         $domains = $request->domains;
@@ -53,13 +53,11 @@ class ApiLoggedUserLetsEncryptController extends Controller
             $domains = [ $request->domains ];
         }
         try {
-            $this->forge->obtainLetsEncryptCertificate($serverId, $siteId, [ 'domains' => $domains] ,false);
+            $this->forge->obtainLetsEncryptCertificate($serverId, $siteId, [ 'domains' => $domains], false);
         } catch (\Exception $e) {
             abort(500, $e->getMessage());
         }
 
         return ['message' => 'Lets Encrypt Certificate created ok!'];
-
     }
-
 }

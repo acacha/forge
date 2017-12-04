@@ -20,8 +20,10 @@ class ListSites extends FormRequest
     public function authorize()
     {
         $servers = Auth::user()->servers()->valid()->get();
-        if (count($servers) === 0) return false;
-        return in_array( $this->server_id , $servers->pluck('forge_id')->toArray() );
+        if (count($servers) === 0) {
+            return false;
+        }
+        return in_array($this->server_id, $servers->pluck('forge_id')->toArray());
     }
 
     /**

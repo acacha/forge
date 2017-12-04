@@ -13,7 +13,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
  *
  * @package Tests\Feature
  */
-class ApiLoggedUserLetsEncryptControllerTest extends TestCase
+class APILoggedUserLetsEncryptControllerTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -30,8 +30,9 @@ class ApiLoggedUserLetsEncryptControllerTest extends TestCase
      *
      * @test
      */
-    public function guest_users_cannot_obtain_lets_encrypt_certificate() {
-        $response = $this->json('POST','/api/v1/user/servers/1568/sites/5986/certificates/letsencrypt');
+    public function guest_users_cannot_obtain_lets_encrypt_certificate()
+    {
+        $response = $this->json('POST', '/api/v1/user/servers/1568/sites/5986/certificates/letsencrypt');
         $response->assertStatus(401);
     }
 
@@ -40,7 +41,8 @@ class ApiLoggedUserLetsEncryptControllerTest extends TestCase
      *
      * @test
      */
-    public function not_authorized_to_obtain_lets_encrypt_certificate_on_non_owned_servers() {
+    public function not_authorized_to_obtain_lets_encrypt_certificate_on_non_owned_servers()
+    {
         $user = factory(User::class)->create();
 
         factory(Server::class)->create([
@@ -48,8 +50,8 @@ class ApiLoggedUserLetsEncryptControllerTest extends TestCase
             'forge_id' => 1568,
             'state' => 'valid'
         ]);
-        $this->actingAs($user,'api');
-        $response = $this->json('POST','/api/v1/user/servers/9999/sites/5986/certificates/letsencrypt');
+        $this->actingAs($user, 'api');
+        $response = $this->json('POST', '/api/v1/user/servers/9999/sites/5986/certificates/letsencrypt');
         $response->assertStatus(403);
     }
 
@@ -58,7 +60,8 @@ class ApiLoggedUserLetsEncryptControllerTest extends TestCase
      *
      * @test
      */
-    public function resource_not_found_on_unexisting_site() {
+    public function resource_not_found_on_unexisting_site()
+    {
         $user = factory(User::class)->create();
 
         factory(Server::class)->create([
@@ -66,8 +69,8 @@ class ApiLoggedUserLetsEncryptControllerTest extends TestCase
             'forge_id' => 1568,
             'state' => 'valid'
         ]);
-        $this->actingAs($user,'api');
-        $response = $this->json('POST','/api/v1/user/servers/1568/sites/99999/certificates/letsencrypt', [
+        $this->actingAs($user, 'api');
+        $response = $this->json('POST', '/api/v1/user/servers/1568/sites/99999/certificates/letsencrypt', [
             'domains' => 'prova.com'
         ]);
         $response->assertStatus(404);
@@ -78,7 +81,8 @@ class ApiLoggedUserLetsEncryptControllerTest extends TestCase
      *
      * @test
      */
-    public function check_validation() {
+    public function check_validation()
+    {
         $user = factory(User::class)->create();
 
         factory(Server::class)->create([
@@ -86,8 +90,8 @@ class ApiLoggedUserLetsEncryptControllerTest extends TestCase
             'forge_id' => 154577,
             'state' => 'valid'
         ]);
-        $this->actingAs($user,'api');
-        $response = $this->json('POST','/api/v1/user/servers/154577/sites/435202/certificates/letsencrypt');
+        $this->actingAs($user, 'api');
+        $response = $this->json('POST', '/api/v1/user/servers/154577/sites/435202/certificates/letsencrypt');
         $response->assertStatus(422);
         $response->assertJson([
             'message' => "The given data was invalid.",
@@ -118,5 +122,4 @@ class ApiLoggedUserLetsEncryptControllerTest extends TestCase
 //        ]);
 //        $response->assertSuccessful();
 //    }
-
 }
