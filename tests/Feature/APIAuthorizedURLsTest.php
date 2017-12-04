@@ -50,7 +50,10 @@ class APIAuthorizedURLsTest extends TestCase
             ['post','/api/v1/assignment/1/group/1'],
 
             ['get','/api/v1/user/assignment'],
-            ['get','/api/v1/user/assignment/1']
+            ['get','/api/v1/user/assignment/1'],
+
+            ['get','/api/v1/teacher/assignment'],
+
 
         ];
     }

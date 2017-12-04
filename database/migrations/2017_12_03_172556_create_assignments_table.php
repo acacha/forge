@@ -35,6 +35,16 @@ class CreateAssignmentsTable extends Migration
 
             $table->foreign('assignment_id')->references('id')->on('assignments')->onDelete('cascade');
         });
+
+        Schema::create('assignators', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('assignment_id');
+            $table->morphs('assignator');
+
+            $table->timestamps();
+
+            $table->foreign('assignment_id')->references('id')->on('assignments')->onDelete('cascade');
+        });
     }
 
     /**
@@ -44,6 +54,7 @@ class CreateAssignmentsTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('assignators');
         Schema::dropIfExists('assignables');
         Schema::dropIfExists('assignments');
     }

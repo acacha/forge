@@ -48,7 +48,8 @@ class APIAssignmentsController extends Controller
      */
     protected function store(StoreAssignment $request)
     {
-        return Assignment::create($request->only(['name','repository_uri','repository_type','forge_site','forge_server']));
+        $assignement = Assignment::create($request->only(['name','repository_uri','repository_type','forge_site','forge_server']));
+        return $assignement;
     }
 
     /**

@@ -73,6 +73,10 @@ Route::group(['prefix' => 'v1','middleware' => 'auth:api'], function () {
     Route::get('/user/assignment',                          'APILoggedUserAssignmentsController@index');
     Route::get('/user/assignment/{assignment}',             'APILoggedUserAssignmentsController@show');
 
+    //Logged teacher assignements
+    Route::get('/teacher/assignment',           'APILoggedTeacherAssignmentsController@index');
+
+    //MYSQL USERS
     Route::get('/user/servers/{serverId}/mysql_users',              'APILoggedUserMysqlUsersController@index');
     Route::get('/user/servers/{serverId}/mysql_users/{userId}',     'APILoggedUserMysqlUsersController@show');
     Route::post('/user/servers/{serverId}/mysql_users',             'APILoggedUserMysqlUsersController@store');

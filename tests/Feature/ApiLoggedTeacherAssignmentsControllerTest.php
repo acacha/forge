@@ -9,11 +9,11 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 /**
- * Class ApiAssignmentsControllerTest.
+ * Class ApiLoggedTeacherAssignmentsControllerTest.
  *
  * @package Tests\Feature
  */
-class ApiAssignmentsControllerTest extends TestCase
+class ApiLoggedTeacherAssignmentsControllerTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -22,7 +22,7 @@ class ApiAssignmentsControllerTest extends TestCase
         parent::setUp();
         App::setLocale('en');
         initialize_forge_management_permissions();
-//        $this->withoutExceptionHandling();
+        $this->withoutExceptionHandling();
     }
 
     /**
@@ -34,6 +34,7 @@ class ApiAssignmentsControllerTest extends TestCase
         $user = factory(User::class)->create();
         $user->assignRole('teacher');
         $this->actingAs($user,'api');
+        return $user;
     }
 
     /**
@@ -44,12 +45,13 @@ class ApiAssignmentsControllerTest extends TestCase
      */
     public function teachers_can_list_assignments()
     {
-        $this->loginAsTeacher();
+        $teacher = $this->loginAsTeacher();
 
         $assignments = factory(Assignment::class,3)->create();
 
-        $response = $this->get('/api/v1/assignment');
+        $teacher->createdAssignments()->saveMany($assignments);
 
+        $response = $this->get('/api/v1/teacher/assignment');
         $response->assertSuccessful();
 
         $this->assertCount(3, json_decode($response->getContent()));
