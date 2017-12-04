@@ -47,6 +47,7 @@ Route::group(['prefix' => 'v1','middleware' => 'auth:api'], function () {
     Route::put('/user/servers/{serverId}/sites/{siteId}/deployment/script',
                                                                                 'APILoggedUserDeploymentScriptController@update');
 
+<<<<<<< HEAD
     Route::get('/user/servers/{serverId}/mysql',                'APILoggedUserMysqlController@index');
     Route::get('/user/servers/{serverId}/mysql/{databaseId}',   'APILoggedUserMysqlController@show');
     Route::post('/user/servers/{serverId}/mysql',               'APILoggedUserMysqlController@store');
@@ -65,9 +66,15 @@ Route::group(['prefix' => 'v1','middleware' => 'auth:api'], function () {
     Route::post('/assignment/{assignment}/user/{user}',     'APIAssignmentsUsersController@store');
     Route::post('/assignment/{assignment}/group/{group}',   'APIAssignmentsGroupsController@store');
 
+    Route::get('/user/servers/{serverId}/mysql',                'APILoggedUserMysqlController@index');
+    Route::get('/user/servers/{serverId}/mysql/{databaseId}',   'APILoggedUserMysqlController@show');
+    Route::post('/user/servers/{serverId}/mysql',               'APILoggedUserMysqlController@store');
+
     //Logged user assignments
     Route::get('/user/assignment',                          'APILoggedUserAssignmentsController@index');
     Route::get('/user/assignment/{assignment}',             'APILoggedUserAssignmentsController@show');
 
-//    $response = $this->post('/api/v1/assignment/' . $assignment->id . '/user/' . $user->id);
+    Route::get('/user/servers/{serverId}/mysql_users',              'APILoggedUserMysqlUsersController@index');
+    Route::get('/user/servers/{serverId}/mysql_users/{userId}',     'APILoggedUserMysqlUsersController@show');
+    Route::post('/user/servers/{serverId}/mysql_users',             'APILoggedUserMysqlUsersController@store');
 });
