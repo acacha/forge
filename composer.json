@@ -18,7 +18,7 @@
     ],
     "require": {
         "php": "~5.6|~7.0",
-        "acacha/stateful-eloquent": "^0.1.8",
+        "acacha/stateful-eloquent": "dev-master",
         "guzzlehttp/guzzle": "^6.3",
         "laravel-notification-channels/telegram": "^0.0.3",
         "spatie/laravel-permission": "^2.7",

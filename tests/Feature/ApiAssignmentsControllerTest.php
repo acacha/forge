@@ -22,7 +22,7 @@ class ApiAssignmentsControllerTest extends TestCase
         parent::setUp();
         App::setLocale('en');
         initialize_forge_management_permissions();
-//        $this->withoutExceptionHandling();
+        $this->withoutExceptionHandling();
     }
 
     /**
@@ -34,6 +34,7 @@ class ApiAssignmentsControllerTest extends TestCase
         $user = factory(User::class)->create();
         $user->assignRole('teacher');
         $this->actingAs($user,'api');
+        return $user;
     }
 
     /**
@@ -53,7 +54,6 @@ class ApiAssignmentsControllerTest extends TestCase
         $response->assertSuccessful();
 
         $this->assertCount(3, json_decode($response->getContent()));
-//        $response->dump();
 
         $response->assertJson([
             [
@@ -116,7 +116,7 @@ class ApiAssignmentsControllerTest extends TestCase
      */
     public function teachers_can_create_assignments()
     {
-        $this->loginAsTeacher();
+        $teacher = $this->loginAsTeacher();
 
         $response = $this->post('/api/v1/assignment',[
             'name' => 'Assignment name'
@@ -124,7 +124,7 @@ class ApiAssignmentsControllerTest extends TestCase
 
         $response->assertSuccessful();
 
-//        $response->dump();
+        $assignment = json_decode($response->getContent());
 
         $response->assertJson([
             'name' => 'Assignment name'
@@ -133,6 +133,13 @@ class ApiAssignmentsControllerTest extends TestCase
         $this->assertDatabaseHas('assignments', [
             'name' => 'Assignment name'
         ]);
+
+        $this->assertDatabaseHas('assignators', [
+            'assignment_id' => $assignment->id,
+            'assignator_id' => $teacher->id,
+            'assignator_type' => User::class,
+        ]);
+
     }
 
     /**

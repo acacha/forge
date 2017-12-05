@@ -8,6 +8,7 @@ use Acacha\Forge\Http\Requests\ShowAssignment;
 use Acacha\Forge\Http\Requests\StoreAssignment;
 use Acacha\Forge\Http\Requests\UpdateAssignment;
 use Acacha\Forge\Models\Assignment;
+use Auth;
 
 /**
  * Class APIAssignmentsController.
@@ -25,7 +26,7 @@ class APIAssignmentsController extends Controller
      */
     public function index(ListAssignment $request)
     {
-        return Assignment::all();
+        return Assignment::with(['users','groups','assignators'])->get();
     }
 
     /**
@@ -37,6 +38,7 @@ class APIAssignmentsController extends Controller
      */
     public function show(ShowAssignment $request, Assignment $assignment)
     {
+        $assignment->load(['users','groups','assignators']);
         return $assignment;
     }
 
@@ -48,8 +50,11 @@ class APIAssignmentsController extends Controller
      */
     protected function store(StoreAssignment $request)
     {
-        $assignement = Assignment::create($request->only(['name','repository_uri','repository_type','forge_site','forge_server']));
-        return $assignement;
+        $assignment = Assignment::create($request->only(['name','repository_uri','repository_type','forge_site','forge_server']));
+
+        $assignment->assignators()->save(Auth::user());
+
+        return $assignment;
     }
 
     /**

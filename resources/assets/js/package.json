@@ -1,0 +1,15 @@
+{
+  "name": "acacha-forge",
+  "version": "1.0.0",
+  "description": "",
+  "main": "forge-bootstrap.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Sergi Tur Badenas <sergiturbadenas@gmail.com> (http://acacha.org)",
+  "license": "ISC",
+  "dependencies": {
+    "acacha-forms": "^1.0.8"
+  }
+}

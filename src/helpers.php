@@ -25,6 +25,12 @@ if (! function_exists('initialize_forge_management_permissions')) {
         $student = role_first_or_create('student');
         $teacher = role_first_or_create('teacher');
 
+        initialize_groups_management_permissions();
+        give_permission_to_role($teacher, 'list-groups');
+        give_permission_to_role($teacher, 'list-groups');
+        give_permission_to_role($teacher, 'list-groups');
+
+        //ASSIGNMENT
         permission_first_or_create('show-assignment');
         give_permission_to_role($teacher, 'show-assignment');
         permission_first_or_create('list-assignment');
@@ -39,8 +45,6 @@ if (! function_exists('initialize_forge_management_permissions')) {
         give_permission_to_role($teacher, 'assign-users-to-assignments');
         permission_first_or_create('assign-groups-to-assignments');
         give_permission_to_role($teacher, 'assign-groups-to-assignments');
-
-
 
         //MANAGE FORGE ROLE
         permission_first_or_create('list-user-servers');
@@ -134,6 +138,18 @@ if (! function_exists('first_user_as_forge_manager')) {
         initialize_forge_management_permissions();
         $user = User::all()->first();
         $user->assignRole('manage-forge');
+    }
+}
+
+if (! function_exists('first_user_as_teacher')) {
+    /**
+     * Set first user as teacher
+     */
+    function first_user_as_teacher()
+    {
+        initialize_forge_management_permissions();
+        $user = User::all()->first();
+        $user->assignRole('teacher');
     }
 }
 

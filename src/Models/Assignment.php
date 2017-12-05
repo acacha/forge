@@ -66,4 +66,12 @@ class Assignment extends Model implements Stateful
     {
         return $this->morphedByMany(Group::class, 'assignable');
     }
+
+    /**
+     * Get all of the videos that are assigned this tag.
+     */
+    public function assignators()
+    {
+        return $this->morphedByMany(User::class, 'assignator')->withTimestamps();
+    }
 }

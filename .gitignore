@@ -3,3 +3,4 @@ composer.lock
 vendor
 .idea
 .idea_old
+resources/assets/js/node_modules
