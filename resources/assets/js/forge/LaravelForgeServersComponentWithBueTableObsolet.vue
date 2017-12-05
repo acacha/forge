@@ -74,6 +74,7 @@
 <script>
 
   import Multiselect from 'vue-multiselect'
+  import axios from 'Axios'
 
   import Vuetable from 'vuetable-2/src/components/Vuetable'
   import VuetablePagination from 'vuetable-2/src/components/VuetablePagination'

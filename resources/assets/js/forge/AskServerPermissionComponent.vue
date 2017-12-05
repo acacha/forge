@@ -55,6 +55,7 @@
 
   import Form from 'acacha-forms'
   import Multiselect from 'vue-multiselect'
+  import axios from 'Axios'
 
   export default {
     components: { Multiselect },

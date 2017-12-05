@@ -10,6 +10,9 @@
   "author": "Sergi Tur Badenas <sergiturbadenas@gmail.com> (http://acacha.org)",
   "license": "ISC",
   "dependencies": {
-    "acacha-forms": "^1.0.8"
+    "acacha-forms": "^1.0.8",
+    "axios": "^0.17.1",
+    "vue": "^2.5.9",
+    "vue-multiselect": "^2.0.8"
   }
 }
