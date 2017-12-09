@@ -22,7 +22,7 @@ class ApiAssignmentsControllerTest extends TestCase
         parent::setUp();
         App::setLocale('en');
         initialize_forge_management_permissions();
-        $this->withoutExceptionHandling();
+//        $this->withoutExceptionHandling();
     }
 
     /**

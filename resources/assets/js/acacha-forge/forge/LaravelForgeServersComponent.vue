@@ -76,7 +76,7 @@
 <script>
 
   import Multiselect from 'vue-multiselect'
-  import axios from 'Axios'
+  import axios from 'axios'
 
   export default {
     components: { Multiselect },

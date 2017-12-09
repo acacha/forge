@@ -2,7 +2,7 @@
   "name": "acacha-forge",
   "version": "1.0.0",
   "description": "",
-  "main": "forge-bootstrap.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -11,8 +11,10 @@
   "license": "ISC",
   "dependencies": {
     "acacha-forms": "^1.0.8",
+    "adminlte-vue": "^0.1.3",
     "axios": "^0.17.1",
     "vue": "^2.5.9",
-    "vue-multiselect": "^2.0.8"
+    "vue-multiselect": "^2.0.8",
+    "vuex": "^3.0.1"
   }
 }
