@@ -21,24 +21,20 @@
                 </div>
             </div>
         </div>
-
         <adminlte-flash-message></adminlte-flash-message>
-
     </div>
 </template>
 
 <script>
+  import { UserProfileInfoBox, UserProfileStoreComponent, UserForm } from 'acacha-users'
 
-  import {UserProfileInfoBox , UserProfileStoreComponent, UserForm } from 'acacha-users'
-
-  import {AdminlteFlashMessage} from 'adminlte-vue'
+  import {AdminlteFlashMessageComponent} from 'adminlte-vue'
 
   export default {
     extends: UserProfileStoreComponent,
     name: 'UserProfile',
-    components: {UserProfileInfoBox, UserForm, AdminlteFlashMessage},
+    components: {UserProfileInfoBox, UserForm, AdminlteFlashMessageComponent},
     created () {
-      console.log(AdminlteFlashMessage)
       this.$store.dispatch('acacha-users/getUser', true)
     }
   }
