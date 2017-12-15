@@ -12,7 +12,11 @@
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="user">
-                            <user-form></user-form>
+                            <logged-user-name-form></logged-user-name-form>
+                            <hr>
+                            <logged-user-email-form></logged-user-email-form>
+                            <hr>
+                            <logged-user-password-form></logged-user-password-form>
                         </div>
                         <div class="tab-pane" id="personal">
                             TODO
@@ -26,17 +30,21 @@
 </template>
 
 <script>
-  import { UserProfileInfoBox, UserProfileStoreComponent, UserForm } from 'acacha-users'
-
-  import {AdminlteFlashMessageComponent} from 'adminlte-vue'
+  import { UserProfileInfoBox, UserProfileStoreComponent, LoggedUserNameForm, LoggedUserEmailForm, LoggedUserPasswordForm } from 'acacha-users'
+  import { AdminlteFlashMessageComponent } from 'adminlte-vue'
+  import { mapGetters } from 'vuex'
 
   export default {
     extends: UserProfileStoreComponent,
     name: 'UserProfile',
-    components: {UserProfileInfoBox, UserForm, AdminlteFlashMessageComponent},
+    components: {UserProfileInfoBox, LoggedUserNameForm, LoggedUserEmailForm, LoggedUserPasswordForm, AdminlteFlashMessageComponent},
+    computed: {
+      ...mapGetters({
+        user: 'acacha-users/user'
+      })
+    },
     created () {
       this.$store.dispatch('acacha-users/getUser', true)
     }
   }
-
 </script>
