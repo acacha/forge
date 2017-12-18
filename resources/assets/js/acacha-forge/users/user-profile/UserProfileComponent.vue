@@ -25,7 +25,7 @@
                 </div>
             </div>
         </div>
-        <!--<adminlte-flash-message></adminlte-flash-message>-->
+        <adminlte-flash-message></adminlte-flash-message>
     </div>
 </template>
 
