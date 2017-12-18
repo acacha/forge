@@ -13,9 +13,9 @@
                     <div class="tab-content">
                         <div class="tab-pane active" id="user">
                             <logged-user-name-form></logged-user-name-form>
-                            <hr>
+                            <br>
                             <logged-user-email-form></logged-user-email-form>
-                            <hr>
+                            <br>
                             <logged-user-password-form></logged-user-password-form>
                         </div>
                         <div class="tab-pane" id="personal">
@@ -25,7 +25,7 @@
                 </div>
             </div>
         </div>
-        <adminlte-flash-message></adminlte-flash-message>
+        <!--<adminlte-flash-message></adminlte-flash-message>-->
     </div>
 </template>
 
